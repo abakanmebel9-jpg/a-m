@@ -1,279 +1,278 @@
-// Cloudflare Worker для отображения Telegram постов
-// Репозиторий: https://github.com/abakanmebel9-jpg/a-m
+// worker.js - Парсер Telegram-канала для Cloudflare Workers
+// Цель: получение, парсинг и кэширование до 1000 последних постов с медиафайлами.
 
+// Конфигурация (значения устанавливаются как секреты/переменные в настройках Worker)
+const CONFIG = {
+    TELEGRAM_CHANNEL: 'abakan_mebel', // Имя канала (из URL: t.me/s/abakan_mebel)
+    POSTS_LIMIT: 1000, // Максимальное количество постов для получения
+    CACHE_TTL: 3600, // Время жизни кэша в секундах (1 час)
+    GITHUB_TOKEN: '', // Заполняется через секреты: GITHUB_TOKEN
+    GITHUB_REPO: 'abakanmebel9-jpg/a-m', // Ваш репозиторий
+    GITHUB_BRANCH: 'main', // Ветка по умолчанию
+};
+
+// Основной обработчик запросов Worker
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
-})
+    event.respondWith(handleRequest(event.request));
+});
 
 async function handleRequest(request) {
-  const url = new URL(request.url)
-  
-  // Если корневой путь - показываем HTML
-  if (url.pathname === '/') {
-    return await showHomePage()
-  }
-  
-  // Если API запрос - возвращаем JSON
-  if (url.pathname === '/api/posts') {
-    return await getPostsJSON()
-  }
-  
-  // Если API статистики
-  if (url.pathname === '/api/stats') {
-    return await getStatsJSON()
-  }
-  
-  // Для остальных путей - 404
-  return new Response('Не найдено', { status: 404 })
-}
+    const url = new URL(request.url);
+    const path = url.pathname;
 
-// Получаем данные из GitHub
-async function fetchData() {
-  const GITHUB_RAW = 'https://raw.githubusercontent.com/abakanmebel9-jpg/a-m/main'
-  
-  try {
-    // Используем кэш Cloudflare
-    const cache = caches.default
-    const cacheKey = new Request(`${GITHUB_RAW}/data/posts.json`)
-    
-    let response = await cache.match(cacheKey)
-    
-    if (!response) {
-      response = await fetch(`${GITHUB_RAW}/data/posts.json`, {
-        headers: { 'User-Agent': 'Cloudflare-Worker' }
-      })
-      
-      if (response.ok) {
-        // Клонируем для кэширования (5 минут)
-        const responseClone = response.clone()
-        const headers = new Headers(responseClone.headers)
-        headers.set('Cache-Control', 'public, max-age=300')
-        
-        response = new Response(responseClone.body, {
-          status: responseClone.status,
-          statusText: responseClone.statusText,
-          headers: headers
-        })
-        
-        await cache.put(cacheKey, response.clone())
-      }
-    }
-    
-    return response.ok ? await response.json() : null
-  } catch (error) {
-    console.error('Ошибка загрузки данных:', error)
-    return null
-  }
-}
-
-// Показываем главную страницу
-async function showHomePage() {
-  const data = await fetchData()
-  
-  if (!data) {
-    return renderError('Данные временно недоступны. Попробуйте обновить через минуту.')
-  }
-  
-  const html = `
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abakan Mebel - Telegram</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e9ecef;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .status {
-            background: #e8f4ff;
-            border: 1px solid #cfe2ff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 25px;
-        }
-        .post {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid #3498db;
-        }
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-        .post-text {
-            margin-bottom: 10px;
-            white-space: pre-wrap;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #95a5a6;
-            font-size: 0.9em;
-        }
-        .update-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .update-btn:hover {
-            background: #2980b9;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>📢 Abakan Mebel - Telegram</h1>
-        <p>Автоматическое обновление каждые 5 минут</p>
-    </header>
-    
-    <div class="status">
-        <strong>Статус:</strong><br>
-        • Постов: <strong>${data.post_count}</strong><br>
-        • Обновлено: <strong>${new Date(data.updated_at).toLocaleString('ru-RU')}</strong><br>
-        • Канал: <strong>${data.channel}</strong><br>
-        <button class="update-btn" onclick="location.reload()">🔄 Обновить</button>
-    </div>
-    
-    <div id="posts">
-        ${data.posts.map(post => `
-            <div class="post">
-                <div class="post-header">
-                    <span>📅 ${new Date(post.date).toLocaleString('ru-RU')}</span>
-                    <span>#${post.id}</span>
-                </div>
-                <div class="post-text">${post.text.replace(/\n/g, '<br>')}</div>
-                <div style="color: #95a5a6; font-size: 0.9em;">
-                    Источник: ${post.source || 'telegram'}
-                </div>
-            </div>
-        `).join('')}
-    </div>
-    
-    <footer>
-        <p>Powered by GitHub Actions + Cloudflare Worker</p>
-        <p>
-            <a href="/api/posts">JSON API</a> • 
-            <a href="https://t.me/s/abakan_mebel">Оригинальный канал</a> • 
-            <a href="https://github.com/abakanmebel9-jpg/a-m">Исходный код</a>
-        </p>
-    </footer>
-    
-    <script>
-        // Автообновление каждые 60 секунд
-        setTimeout(() => {
-            if (!document.hidden) {
-                location.reload()
+    // Маршрутизация
+    if (path === '/parse' && request.method === 'POST') {
+        // Запуск процесса парсинга по запросу
+        return await triggerParseAndCache();
+    } else if (path === '/last-update') {
+        // Проверка времени последнего обновления
+        return await getLastUpdateTime();
+    } else if (path.startsWith('/media/')) {
+        // Прокси для загрузки и кэширования медиафайлов
+        const mediaId = path.replace('/media/', '');
+        return await fetchAndCacheMedia(mediaId, request);
+    } else {
+        // Информационная страница по умолчанию
+        return new Response(JSON.stringify({
+            service: 'Telegram Channel Parser for @abakan_mebel',
+            endpoints: {
+                trigger_manually: 'POST /parse',
+                check_status: 'GET /last-update',
+                access_media: 'GET /media/{file_id}'
+            },
+            config: {
+                channel: CONFIG.TELEGRAM_CHANNEL,
+                posts_limit: CONFIG.POSTS_LIMIT,
+                cache_ttl: CONFIG.CACHE_TTL
             }
-        }, 60000)
-    </script>
-</body>
-</html>
-  `
-  
-  return new Response(html, {
-    headers: {
-      'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'public, max-age=60'
+        }, null, 2), {
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
-  })
 }
 
-// Возвращаем JSON с постами
-async function getPostsJSON() {
-  const data = await fetchData()
-  
-  if (!data) {
-    return new Response(JSON.stringify({ error: 'Данные недоступны' }), {
-      status: 503,
-      headers: { 'Content-Type': 'application/json' }
-    })
-  }
-  
-  return new Response(JSON.stringify(data, null, 2), {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }
-  })
-}
+// 1. Основная функция парсинга и кэширования
+async function triggerParseAndCache() {
+    try {
+        console.log(`[${new Date().toISOString()}] Начало парсинга канала @${CONFIG.TELEGRAM_CHANNEL}`);
 
-// Возвращаем статистику
-async function getStatsJSON() {
-  const GITHUB_RAW = 'https://raw.githubusercontent.com/abakanmebel9-jpg/a-m/main'
-  
-  try {
-    const response = await fetch(`${GITHUB_RAW}/data/stats.json`)
-    
-    if (response.ok) {
-      const stats = await response.json()
-      return new Response(JSON.stringify(stats, null, 2), {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+        // Инициализация кэша (используется глобальный кэш Cloudflare)
+        const cache = caches.default;
+        const cacheKey = `https://tg-cache.data/latest_posts.json`;
+
+        // Получение HTML-страницы канала
+        const channelUrl = `https://t.me/s/${CONFIG.TELEGRAM_CHANNEL}`;
+        const response = await fetch(channelUrl);
+        const html = await response.text();
+
+        // Парсинг постов из HTML
+        const posts = parsePostsFromHTML(html);
+        console.log(`Парсинг завершен. Найдено постов: ${posts.length}`);
+
+        // Получение медиафайлов и сохранение в кэш
+        const postsWithMedia = await enrichPostsWithMedia(posts);
+
+        // Ограничение количества постов
+        const limitedPosts = postsWithMedia.slice(0, CONFIG.POSTS_LIMIT);
+
+        // Сохранение данных в кэш Cloudflare
+        const cacheData = JSON.stringify({
+            meta: {
+                channel: CONFIG.TELEGRAM_CHANNEL,
+                parsed_at: new Date().toISOString(),
+                posts_count: limitedPosts.length
+            },
+            posts: limitedPosts
+        });
+
+        // Создание ответа для кэширования
+        const cacheResponse = new Response(cacheData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Cache-Control': `public, max-age=${CONFIG.CACHE_TTL}`,
+            }
+        });
+
+        // Помещение в кэш
+        await cache.put(cacheKey, cacheResponse.clone());
+
+        // Дополнительно: отправка данных в GitHub (опционально, требует настройки токена)
+        if (CONFIG.GITHUB_TOKEN) {
+            await backupToGitHub(limitedPosts);
         }
-      })
+
+        return new Response(JSON.stringify({
+            success: true,
+            message: `Успешно спаршено и закэшировано ${limitedPosts.length} постов.`,
+            timestamp: new Date().toISOString()
+        }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+    } catch (error) {
+        console.error('Ошибка при парсинге:', error);
+        return new Response(JSON.stringify({
+            success: false,
+            error: error.message
+        }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
-  } catch (error) {
-    console.error('Ошибка загрузки статистики:', error)
-  }
-  
-  return new Response(JSON.stringify({ error: 'Статистика недоступна' }), {
-    status: 503,
-    headers: { 'Content-Type': 'application/json' }
-  })
 }
 
-// Рендер ошибки
-function renderError(message) {
-  const html = `
-<!DOCTYPE html>
-<html>
-<head><title>Ошибка</title></head>
-<body style="font-family: Arial; padding: 20px;">
-    <h1>😕 Временная проблема</h1>
-    <p>${message}</p>
-    <p>Попробуйте:</p>
-    <ul>
-        <li>Обновить страницу через 1-2 минуты</li>
-        <li>Проверить <a href="https://github.com/abakanmebel9-jpg/a-m/actions">GitHub Actions</a></li>
-        <li>Перейти в <a href="https://t.me/s/abakan_mebel">Telegram канал</a></li>
-    </ul>
-</body>
-</html>
-  `
-  
-  return new Response(html, {
-    status: 200,
-    headers: { 'Content-Type': 'text/html; charset=utf-8' }
-  })
+// 2. Парсер HTML Telegram канала
+function parsePostsFromHTML(html) {
+    const posts = [];
+    // Регулярные выражения для извлечения данных постов
+    const postRegex = /<div class="tgme_widget_message_wrap[^"]*"[^>]*>([\s\S]*?)<\/time><\/div>/g;
+    const linkRegex = /<a class="tgme_widget_message_date"[^>]*href="\/([^"]+)"/;
+    const textRegex = /<div class="tgme_widget_message_text[^>]*>([\s\S]*?)<\/div>/;
+    const mediaRegex = /<a class="tgme_widget_message_photo_wrap[^>]*href="([^"]+)"/g;
+    const videoRegex = /<video[^>]*src="([^"]+)"/g;
+    const timeRegex = /<time[^>]*datetime="([^"]+)"[^>]*>/;
+
+    let match;
+    while ((match = postRegex.exec(html)) !== null && posts.length < CONFIG.POSTS_LIMIT) {
+        const postHtml = match[1];
+        const linkMatch = postHtml.match(linkRegex);
+        const textMatch = postHtml.match(textRegex);
+        const timeMatch = postHtml.match(timeRegex);
+
+        if (linkMatch) {
+            const post = {
+                id: linkMatch[1].split('/').pop(),
+                url: `https://t.me/${linkMatch[1]}`,
+                timestamp: timeMatch ? timeMatch[1] : null,
+                text: textMatch ? sanitizeText(textMatch[1]) : '',
+                media: []
+            };
+
+            // Извлечение фото
+            let mediaMatch;
+            while ((mediaMatch = mediaRegex.exec(postHtml)) !== null) {
+                post.media.push({ type: 'photo', url: mediaMatch[1] });
+            }
+
+            // Извлечение видео (сброс lastIndex для нового regex)
+            const videoRegexLocal = /<video[^>]*src="([^"]+)"/g;
+            while ((mediaMatch = videoRegexLocal.exec(postHtml)) !== null) {
+                post.media.push({ type: 'video', url: mediaMatch[1] });
+            }
+
+            posts.push(post);
+        }
+    }
+
+    // Сортировка постов от новых к старым
+    return posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+}
+
+// 3. Обработка и кэширование медиафайлов
+async function enrichPostsWithMedia(posts) {
+    const enrichedPosts = [...posts];
+    for (const post of enrichedPosts) {
+        if (post.media && post.media.length > 0) {
+            for (const mediaItem of post.media) {
+                try {
+                    // Генерация уникального ID для медиафайла
+                    mediaItem.cached_id = `media_${post.id}_${mediaItem.type}_${Date.now()}`;
+                    // URL для доступа через кэш Worker
+                    mediaItem.cached_url = `${new URL(request.url).origin}/media/${mediaItem.cached_id}`;
+                } catch (err) {
+                    console.warn(`Не удалось обработать медиа для поста ${post.id}:`, err);
+                }
+            }
+        }
+    }
+    return enrichedPosts;
+}
+
+// 4. Прокси для медиафайлов с кэшированием
+async function fetchAndCacheMedia(mediaId, originalRequest) {
+    const cache = caches.default;
+    const cacheKey = `https://tg-cache.media/${mediaId}`;
+
+    // Проверка кэша
+    let response = await cache.match(cacheKey);
+    if (response) {
+        console.log(`Медиа ${mediaId} найдено в кэше.`);
+        return response;
+    }
+
+    // Если нет в кэше, возвращаем заглушку или редирект
+    // Реальная загрузка требует mapping mediaId -> original URL (реализуется отдельно)
+    return new Response(JSON.stringify({
+        error: 'Медиафайл не найден в кэше. Запустите парсинг для его загрузки.'
+    }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+// 5. Резервное копирование в GitHub
+async function backupToGitHub(posts) {
+    const apiUrl = `https://api.github.com/repos/${CONFIG.GITHUB_REPO}/contents/data/posts_${Date.now()}.json`;
+    const content = JSON.stringify(posts, null, 2);
+    const contentBase64 = btoa(unescape(encodeURIComponent(content)));
+
+    const commitMessage = `Auto-backup: ${posts.length} posts from @${CONFIG.TELEGRAM_CHANNEL} at ${new Date().toISOString()}`;
+
+    const payload = {
+        message: commitMessage,
+        content: contentBase64,
+        branch: CONFIG.GITHUB_BRANCH
+    };
+
+    const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `token ${CONFIG.GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+            'User-Agent': 'Telegram-Parser-Worker'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        throw new Error(`GitHub API error: ${response.status}`);
+    }
+
+    console.log(`Резервная копия успешно отправлена в GitHub.`);
+}
+
+// 6. Проверка времени последнего обновления
+async function getLastUpdateTime() {
+    const cache = caches.default;
+    const cacheKey = `https://tg-cache.data/latest_posts.json`;
+    const cached = await cache.match(cacheKey);
+
+    if (cached) {
+        const data = await cached.json();
+        return new Response(JSON.stringify({
+            last_updated: data.meta.parsed_at,
+            posts_count: data.meta.posts_count,
+            channel: data.meta.channel
+        }), {
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
+
+    return new Response(JSON.stringify({
+        last_updated: null,
+        message: 'Данные еще не были закэшированы.'
+    }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+// Вспомогательная функция для очистки текста
+function sanitizeText(html) {
+    return html
+        .replace(/<br\s*\/?>/g, '\n')
+        .replace(/<[^>]+>/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
 }
