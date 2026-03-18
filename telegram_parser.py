@@ -30,7 +30,7 @@ from urllib3.util.retry import Retry
 
 CONFIG = {
     'CHANNEL_URL': 'https://t.me/s/abakan_mebel',
-    'MAX_POSTS': 500,
+    'MAX_POSTS': 999,
     'CACHE_FILE': 'data/cached_posts.json',
     'LATEST_FILE': 'data/latest_posts.json',
     
