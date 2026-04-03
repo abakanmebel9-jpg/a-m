@@ -9,7 +9,7 @@ import requests
 # =============================================================================
 # КОНФИГУРАЦИЯ
 # =============================================================================
-CHANNEL_URL = "https://t.me/s/https:/abakan_mebel"
+CHANNEL_URL = "https://t.me/s/abakan_mebel"
 PARSE_LIMIT = 1000
 CACHE_LIMIT = 5000
 CACHE_FILE = "data/cached_posts.json"
