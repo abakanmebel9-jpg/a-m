@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Crawl-delay: 1
+Sitemap: https://abakanmebel.online/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1

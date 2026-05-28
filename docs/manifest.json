@@ -1,0 +1,16 @@
+{
+  "name": "АбаканМебель",
+  "short_name": "АбаканМебель",
+  "description": "Мебель на заказ в Абакане",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#6366f1",
+  "background_color": "#0f172a",
+  "icons": [
+    {
+      "src": "https://i.pinimg.com/736x/99/d6/71/99d67109954a1bc4102f2142a82d2de7.jpg",
+      "sizes": "640x640",
+      "type": "image/jpeg"
+    }
+  ]
+}
