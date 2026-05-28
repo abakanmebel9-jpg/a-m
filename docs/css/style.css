@@ -178,6 +178,8 @@ img, video { max-width: 100%; height: auto; display: block; }
 .post-feed-text .mention { color: var(--accent); font-weight: 500; }
 .post-feed-actions { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(--border-color); margin-top: auto; }
 .amp-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.media-count-badge { position: absolute; top: 12px; right: 12px; background: rgba(0, 0, 0, 0.7); color: white; padding: 4px 10px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; backdrop-filter: blur(8px); z-index: 2; pointer-events: none; }
+.post-feed-media { position: relative; }
 .load-more-container { text-align: center; padding: 32px 0; width: 100%; max-width: 1200px; margin: 0 auto; }
 .btn-load-more { display: inline-flex; align-items: center; gap: 10px; padding: 14px 40px; background: var(--bg-card); border: 2px solid var(--border-color); border-radius: var(--radius-full); font-weight: 700; cursor: pointer; min-width: 220px; justify-content: center; transition: all var(--transition-base); font-size: 15px; color: var(--text-primary); }
 .btn-load-more:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-lg); }

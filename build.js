@@ -34,7 +34,7 @@ const CONFIG = {
   INSTAGRAM: 'https://www.instagram.com/abakan_mebel/',
   WHATSAPP: 'https://wa.me/79134483717',
   VK: 'https://vk.com/abakan_mebel24',
-  POSTS_PER_PAGE: 30,
+  POSTS_PER_PAGE: 20,
   MAX_POSTS: 5000,
   MAX_MEDIA_PER_POST: 20,
   MAX_HASHTAGS_PER_POST: 12,
@@ -339,6 +339,7 @@ const LANGUAGES = {
     relatedPostsTitle: 'Рекомендуемые проекты', relatedPostsSubtitle: 'Посмотрите другие наши работы',
     btnLoadMore: 'Загрузить ещё', btnAllLoaded: 'Все посты загружены',
     popularTagsTitle: 'Популярные теги', tagTitle: 'Проекты по тегу', tagPostsFound: 'Найдено проектов',
+    pageXofY: 'Страница {X} из {Y}', pagePrev: 'Назад', pageNext: 'Вперёд',
     faqItems: [
       { q: "Сколько стоит кухня на заказ в Абакане?", a: "Стоимость зависит от размеров, материалов и фурнитуры. Средняя цена кухни от 45 000 рублей. Бесплатный расчёт после замера." },
       { q: "Какой срок изготовления кухни?", a: "Срок изготовления от 14 до 31 дня в зависимости от сложности проекта и выбранных материалов." },
@@ -382,6 +383,7 @@ const LANGUAGES = {
     relatedPostsTitle: 'Recommended Projects', relatedPostsSubtitle: 'Check out our other works',
     btnLoadMore: 'Load More', btnAllLoaded: 'All posts loaded',
     popularTagsTitle: 'Popular Tags', tagTitle: 'Projects tagged', tagPostsFound: 'projects found',
+    pageXofY: 'Page {X} of {Y}', pagePrev: 'Previous', pageNext: 'Next',
     faqItems: [
       { q: "How much does a custom kitchen cost in Abakan?", a: "Cost depends on size, materials and hardware. Average kitchen price from 45,000 rubles. Free calculation after measurement." },
       { q: "What is the kitchen production time?", a: "Production time from 14 to 31 days depending on project complexity and selected materials." },
@@ -528,6 +530,23 @@ function generatePostsHTML(posts, lang) {
       }
       mediaBlock += `</div>\n</div>`;
     }
+    // Media count badge for posts with multiple media items
+    let mediaCountBadge = '';
+    if (post.mediaCount > 1) {
+      const photoCount = post.media.filter(m => m.type === 'photo').length;
+      const videoCount = post.media.filter(m => m.type === 'video').length;
+      let badgeText = '';
+      if (photoCount > 0 && videoCount > 0) {
+        badgeText = lang === 'ru'
+          ? `🎬 ${videoCount} видео + 📷 ${photoCount} фото`
+          : `🎬 ${videoCount} video + 📷 ${photoCount} photo`;
+      } else if (videoCount > 0) {
+        badgeText = lang === 'ru' ? `🎬 ${videoCount} видео` : `🎬 ${videoCount} video`;
+      } else {
+        badgeText = lang === 'ru' ? `📷 ${photoCount} фото` : `📷 ${photoCount} photo`;
+      }
+      mediaCountBadge = `<span class="media-count-badge">${badgeText}</span>`;
+    }
     const postUrl = lang === 'ru' ? post.postUrl : post.postUrlEn;
     const ampUrl = lang === 'ru' ? post.ampUrl : post.ampUrlEn;
     const dateStr = new Date(post.date).toLocaleDateString(lang === 'ru' ? 'ru-RU' : 'en-US', {
@@ -537,6 +556,7 @@ function generatePostsHTML(posts, lang) {
     const btnRead = lang === 'ru' ? 'Читать' : 'Read';
     return `<article class="post-feed-item" data-post-id="${escapeHTML(post.id.toString())}">
       ${mediaBlock}
+      ${mediaCountBadge}
       <div class="post-feed-content">
         <div class="post-feed-meta">
           <span>&#128197; ${dateStr}</span>
@@ -580,6 +600,163 @@ function generateGalleryHTML(post, lang) {
   }
   html += '</div>';
   return html;
+}
+
+// ============================================================
+// PAGINATION
+// ============================================================
+function generatePaginationHTML(currentPage, totalPages, lang, basePath) {
+  if (totalPages <= 1) return '';
+  const t = LANGUAGES[lang];
+  const langPrefix = lang === 'en' ? '/en' : '';
+  const MAX_VISIBLE = 7;
+
+  function getPageUrl(pageNum) {
+    if (pageNum === 1) return langPrefix + basePath;
+    return langPrefix + basePath + 'page/' + pageNum + '/';
+  }
+
+  let html = '<nav class="pagination" aria-label="Pagination">';
+
+  // Prev button
+  if (currentPage > 1) {
+    html += `<a href="${getPageUrl(currentPage - 1)}" class="pagination__link pagination__prev" rel="prev">&laquo; ${t.pagePrev}</a>`;
+  }
+
+  // Page buttons with ellipsis logic
+  const pages = [];
+  if (totalPages <= MAX_VISIBLE) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages.push(1);
+    let start = Math.max(2, currentPage - 2);
+    let end = Math.min(totalPages - 1, currentPage + 2);
+    if (currentPage <= 3) { start = 2; end = 5; }
+    if (currentPage >= totalPages - 2) { start = totalPages - 4; end = totalPages - 1; }
+    if (start > 2) pages.push('...');
+    for (let i = start; i <= end; i++) pages.push(i);
+    if (end < totalPages - 1) pages.push('...');
+    pages.push(totalPages);
+  }
+
+  for (const p of pages) {
+    if (p === '...') {
+      html += '<span class="pagination__dots">&hellip;</span>';
+    } else if (p === currentPage) {
+      html += `<span class="pagination__current">${p}</span>`;
+    } else {
+      html += `<a href="${getPageUrl(p)}" class="pagination__link">${p}</a>`;
+    }
+  }
+
+  // Next button
+  if (currentPage < totalPages) {
+    html += `<a href="${getPageUrl(currentPage + 1)}" class="pagination__link pagination__next" rel="next">${t.pageNext} &raquo;</a>`;
+  }
+
+  html += '</nav>';
+  return html;
+}
+
+function generateListingPage(posts, lang, pageNum, totalPages, totalPosts, tag) {
+  const t = LANGUAGES[lang];
+  const langPrefix = lang === 'en' ? '/en' : '';
+  const homeUrl = CONFIG.SITE_URL + langPrefix + '/';
+  const pagePosts = posts.slice((pageNum - 1) * CONFIG.POSTS_PER_PAGE, pageNum * CONFIG.POSTS_PER_PAGE);
+  const pageCounter = t.pageXofY.replace('{X}', pageNum).replace('{Y}', totalPages) + ' (' + totalPosts + (lang === 'ru' ? ' проектов)' : ' projects)');
+
+  let title, description, canonicalUrl, breadcrumbSchema;
+  if (tag) {
+    title = `#${tag} — ${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum} | ${t.companyName}`;
+    description = lang === 'ru'
+      ? `Проекты по тегу #${tag}, страница ${pageNum}. Найдено ${totalPosts} работ.`
+      : `Projects tagged #${tag}, page ${pageNum}. Found ${totalPosts} works.`;
+    canonicalUrl = lang === 'ru'
+      ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${pageNum}`
+      : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${pageNum}`;
+    breadcrumbSchema = generateBreadcrumbSchema([
+      { name: t.companyName, url: homeUrl },
+      { name: '#' + tag, url: lang === 'ru' ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}` : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}` },
+      { name: `${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum}`, url: canonicalUrl }
+    ]);
+  } else {
+    title = `${t.feedTitle} — ${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum} | ${t.companyName}`;
+    description = lang === 'ru'
+      ? `Лента проектов, страница ${pageNum} из ${totalPages}. Всего ${totalPosts} проектов.`
+      : `Project feed, page ${pageNum} of ${totalPages}. Total ${totalPosts} projects.`;
+    canonicalUrl = lang === 'ru'
+      ? `${CONFIG.SITE_URL}/page/${pageNum}`
+      : `${CONFIG.SITE_URL}/en/page/${pageNum}`;
+    breadcrumbSchema = generateBreadcrumbSchema([
+      { name: t.companyName, url: homeUrl },
+      { name: `${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum}`, url: canonicalUrl }
+    ]);
+  }
+
+  const basePath = tag ? `/tag/${encodeURIComponent(tag)}/` : '/';
+  const prevUrl = pageNum > 1
+    ? (pageNum === 2 ? (lang === 'en' ? '/en' + (tag ? `/tag/${encodeURIComponent(tag)}` : '') + '/' : (tag ? `/tag/${encodeURIComponent(tag)}` : '') + '/') : (lang === 'en' ? '/en' : '') + (tag ? `/tag/${encodeURIComponent(tag)}` : '') + `/page/${pageNum - 1}/`)
+    : null;
+  const nextUrl = pageNum < totalPages
+    ? (lang === 'en' ? '/en' : '') + (tag ? `/tag/${encodeURIComponent(tag)}` : '') + `/page/${pageNum + 1}/`
+    : null;
+
+  let relLinks = '';
+  if (pageNum > 1) {
+    const prevCanonical = pageNum === 2
+      ? (tag ? (lang === 'en' ? `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}` : `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}`) : (lang === 'en' ? `${CONFIG.SITE_URL}/en/` : `${CONFIG.SITE_URL}`))
+      : canonicalUrl.replace(/\/page\/\d+\/$/, `/page/${pageNum - 1}/`);
+    relLinks += `<link rel="prev" href="${prevCanonical}">`;
+  }
+  if (pageNum < totalPages) {
+    const nextCanonical = canonicalUrl.replace(/\/page\/\d+\/$/, `/page/${pageNum + 1}/`);
+    relLinks += `<link rel="next" href="${nextCanonical}">`;
+  }
+
+  const extraHead = `<meta property="og:type" content="website">
+  <meta property="og:url" content="${canonicalUrl}">
+  <meta property="og:title" content="${escapeHTML(title)}">
+  <meta property="og:description" content="${escapeHTML(description)}">
+  <meta property="og:image" content="${CONFIG.LOGO_URL}">
+  <meta property="og:site_name" content="${t.companyName}">
+  <meta name="twitter:card" content="summary_large_image">
+  ${generateExtraSEOMeta(CONFIG.LOGO_URL, lang)}
+  ${relLinks}
+  <script type="application/ld+json">${STATIC_ORG_SCHEMA}</script>
+  <script type="application/ld+json">${generateWebSiteSchema(lang)}</script>
+  <script type="application/ld+json">${breadcrumbSchema}</script>
+  <script type="application/ld+json">${generateItemListSchema(pagePosts, lang)}</script>`;
+
+  return `<!DOCTYPE html>
+<html lang="${lang}" data-theme="${CONFIG.DEFAULT_THEME}">
+<head>
+  ${getCommonHeadHTML(title, description, CONFIG.NEWS_KEYWORDS.slice(0, 30).join(', '), canonicalUrl, lang, extraHead)}
+</head>
+<body>
+  <canvas id="matrix-bg"></canvas>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  ${getHeaderHTML(lang, 'listing')}
+  <main id="main-content">
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section__header">
+          <h1 class="section__title">${tag ? t.tagTitle + ' <span class="hero__highlight">#' + escapeHTML(tag) + '</span>' : t.feedTitle}</h1>
+          <p class="section__desc">${pageCounter}</p>
+        </div>
+        <div class="posts-feed-wrapper">
+          <div class="posts-feed" id="postsFeed">
+            ${generatePostsHTML(pagePosts, lang)}
+          </div>
+        </div>
+        ${generatePaginationHTML(pageNum, totalPages, lang, basePath)}
+      </div>
+    </section>
+  </main>
+  ${getFooterHTML(lang, posts)}
+  ${getFloatingButtonsHTML()}
+  ${getClientJS(lang)}
+</body>
+</html>`;
 }
 
 // ============================================================
@@ -688,8 +865,8 @@ function generateExtraSEOMeta(ogImage, lang) {
 function generateHomePage(posts, lang) {
   const t = LANGUAGES[lang];
   const langPrefix = lang === 'en' ? '/en' : '';
+  const totalPages = Math.ceil(posts.length / CONFIG.POSTS_PER_PAGE);
   const initialPosts = posts.slice(0, CONFIG.POSTS_PER_PAGE);
-  const hasMorePosts = posts.length > CONFIG.POSTS_PER_PAGE;
   const seoTitle = lang === 'ru'
     ? 'АбаканМебель — Кухни и шкафы-купе на заказ в Абакане | 25 лет опыта'
     : 'AbakanMebel — Custom Kitchens & Wardrobes in Abakan | 25 Years Experience';
@@ -699,6 +876,15 @@ function generateHomePage(posts, lang) {
   const canonicalUrl = lang === 'ru' ? CONFIG.SITE_URL : CONFIG.SITE_URL + '/en/';
   const ogUrl = canonicalUrl;
   const ogImage = CONFIG.LOGO_URL;
+  const pageCounter = totalPages > 1
+    ? t.pageXofY.replace('{X}', '1').replace('{Y}', totalPages) + ' (' + posts.length + (lang === 'ru' ? ' проектов)' : ' projects)')
+    : (lang === 'ru' ? 'Всего ' + posts.length : 'Total ' + posts.length);
+
+  let relNext = '';
+  if (totalPages > 1) {
+    const nextCanonical = lang === 'ru' ? `${CONFIG.SITE_URL}/page/2/` : `${CONFIG.SITE_URL}/en/page/2/`;
+    relNext = `<link rel="next" href="${nextCanonical}">`;
+  }
 
   const extraHead = `<link rel="amphtml" href="${CONFIG.SITE_URL}${langPrefix}/amp/">
   <meta property="og:type" content="website">
@@ -712,6 +898,7 @@ function generateHomePage(posts, lang) {
   <meta name="twitter:title" content="${escapeHTML(seoTitle)}">
   <meta name="twitter:description" content="${escapeHTML(seoDesc)}">
   ${generateExtraSEOMeta(ogImage, lang)}
+  ${relNext}
   <script type="application/ld+json">${STATIC_ORG_SCHEMA}</script>
   <script type="application/ld+json">${generateWebSiteSchema(lang)}</script>
   <script type="application/ld+json">${generateFAQSchema(lang)}</script>
@@ -768,20 +955,14 @@ function generateHomePage(posts, lang) {
       <div class="container">
         <div class="section__header">
           <h2 class="section__title">${t.feedTitle}</h2>
-          <p class="section__desc">${t.feedSubtitle} - ${posts.length} ${lang === 'ru' ? 'проектов' : 'projects'}</p>
+          <p class="section__desc">${pageCounter}</p>
         </div>
         <div class="posts-feed-wrapper">
           <div class="posts-feed" id="postsFeed">
             ${generatePostsHTML(initialPosts, lang)}
           </div>
         </div>
-        ${hasMorePosts ? `<div class="load-more-container">
-          <button class="btn-load-more" id="loadMoreBtn" data-page="2" data-lang="${lang}" data-total="${posts.length}">
-            <span class="spinner"></span>
-            <span class="btn-text">${t.btnLoadMore}</span>
-          </button>
-          <p class="posts-counter">${lang === 'ru' ? 'Показано ' + initialPosts.length + ' из ' + posts.length : 'Showing ' + initialPosts.length + ' of ' + posts.length}</p>
-        </div>` : `<div class="posts-counter">${lang === 'ru' ? 'Всего ' + posts.length : 'Total ' + posts.length}</div>`}
+        ${generatePaginationHTML(1, totalPages, lang, '/')}
       </div>
     </section>
     <section class="section" id="about">
@@ -928,13 +1109,23 @@ function generateTagPage(tag, tagPosts, allPosts, lang) {
   const t = LANGUAGES[lang];
   const langPrefix = lang === 'en' ? '/en' : '';
   const homeUrl = CONFIG.SITE_URL + langPrefix + '/';
+  const totalPages = Math.ceil(tagPosts.length / CONFIG.POSTS_PER_PAGE);
   const initialPosts = tagPosts.slice(0, CONFIG.POSTS_PER_PAGE);
-  const hasMorePosts = tagPosts.length > CONFIG.POSTS_PER_PAGE;
+  const pageCounter = totalPages > 1
+    ? t.pageXofY.replace('{X}', '1').replace('{Y}', totalPages) + ' (' + tagPosts.length + (lang === 'ru' ? ' проектов)' : ' projects)')
+    : t.tagPostsFound + ': ' + tagPosts.length;
   const seoTitle = `#${tag} — ${lang === 'ru' ? 'Мебель и проекты' : 'Furniture Projects'} | ${t.companyName}`;
   const seoDesc = lang === 'ru'
     ? `Все проекты по тегу #${tag}. Найдено ${tagPosts.length} работ. Кухни, шкафы-купе и мебель на заказ в Абакане.`
     : `All projects tagged #${tag}. Found ${tagPosts.length} works. Custom kitchens, wardrobes and furniture in Abakan.`;
   const canonicalUrl = lang === 'ru' ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}` : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}`;
+  const basePath = `/tag/${encodeURIComponent(tag)}/`;
+
+  let relNext = '';
+  if (totalPages > 1) {
+    const nextCanonical = lang === 'ru' ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/2/` : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/2/`;
+    relNext = `<link rel="next" href="${nextCanonical}">`;
+  }
 
   return `<!DOCTYPE html>
 <html lang="${lang}" data-theme="${CONFIG.DEFAULT_THEME}">
@@ -948,6 +1139,7 @@ function generateTagPage(tag, tagPosts, allPosts, lang) {
   <meta property="og:site_name" content="${t.companyName}">
   <meta name="twitter:card" content="summary_large_image">
   ${generateExtraSEOMeta(CONFIG.LOGO_URL, lang)}
+  ${relNext}
   <script type="application/ld+json">${STATIC_ORG_SCHEMA}</script>
   <script type="application/ld+json">${generateWebSiteSchema(lang)}</script>
   <script type="application/ld+json">${generateBreadcrumbSchema([{ name: t.companyName, url: homeUrl }, { name: '#' + tag, url: canonicalUrl }])}</script>
@@ -962,7 +1154,7 @@ function generateTagPage(tag, tagPosts, allPosts, lang) {
       <div class="container hero__container" style="grid-template-columns: 1fr; text-align: center;">
         <div class="hero__content" style="max-width: 800px; margin: 0 auto;">
           <h1 class="hero__title">${t.tagTitle} <span class="hero__highlight">#${escapeHTML(tag)}</span></h1>
-          <p class="hero__desc">${t.tagPostsFound}: ${tagPosts.length}</p>
+          <p class="hero__desc">${pageCounter}</p>
           <div class="hero__actions" style="justify-content: center;">
             <a href="${homeUrl}" class="btn btn--primary">${t.navHome}</a>
           </div>
@@ -974,11 +1166,7 @@ function generateTagPage(tag, tagPosts, allPosts, lang) {
         <div class="posts-feed-wrapper">
           <div class="posts-feed" id="postsFeed">${generatePostsHTML(initialPosts, lang)}</div>
         </div>
-        ${hasMorePosts ? `<div class="load-more-container">
-          <button class="btn-load-more" id="loadMoreBtn" data-page="2" data-lang="${lang}" data-total="${tagPosts.length}" data-tag="${encodeURIComponent(tag)}">
-            <span class="spinner"></span><span class="btn-text">${t.btnLoadMore}</span>
-          </button>
-        </div>` : ''}
+        ${generatePaginationHTML(1, totalPages, lang, basePath)}
       </div>
     </section>
   </main>
@@ -1009,11 +1197,28 @@ function generateSitemap(posts) {
     xml += `<url><loc>${post.postUrlEn}</loc><lastmod>${dateStr}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="${post.postUrl}"/><xhtml:link rel="alternate" hreflang="en" href="${post.postUrlEn}"/></url>\n`;
   }
+  // Main feed pagination pages
+  const mainTotalPages = Math.ceil(posts.length / CONFIG.POSTS_PER_PAGE);
+  for (let n = 2; n <= mainTotalPages; n++) {
+    xml += `<url><loc>${CONFIG.SITE_URL}/page/${n}/</loc><changefreq>daily</changefreq><priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/page/${n}/"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/page/${n}/"/></url>\n`;
+    xml += `<url><loc>${CONFIG.SITE_URL}/en/page/${n}/</loc><changefreq>daily</changefreq><priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/page/${n}/"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/page/${n}/"/></url>\n`;
+  }
   // Tag pages
   const tags = getPopularTags(posts, 20);
   for (const tag of tags) {
     xml += `<url><loc>${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}</loc><changefreq>weekly</changefreq><priority>0.6</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}"/></url>\n`;
+    // Tag pagination pages
+    const tagPosts = findPostsByTag(posts, tag);
+    const tagTotalPages = Math.ceil(tagPosts.length / CONFIG.POSTS_PER_PAGE);
+    for (let n = 2; n <= tagTotalPages; n++) {
+      xml += `<url><loc>${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${n}/</loc><changefreq>weekly</changefreq><priority>0.5</priority>
+        <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${n}/"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${n}/"/></url>\n`;
+      xml += `<url><loc>${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${n}/</loc><changefreq>weekly</changefreq><priority>0.4</priority>
+        <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${n}/"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${n}/"/></url>\n`;
+    }
   }
   xml += '</urlset>';
   return xml;
@@ -1084,7 +1289,7 @@ async function build() {
   if (posts.length > CONFIG.MAX_POSTS) posts = posts.slice(0, CONFIG.MAX_POSTS);
   console.log(`  Transformed: ${posts.length}`);
 
-  // 3. Generate posts data JSON for client-side load-more
+  // 3. Generate posts data JSON for client-side use
   console.log('Generating posts data JSON...');
   const postsJsonData = posts.map(p => ({
     id: p.id, date: p.date, text: p.text, textWithHashtags: p.textWithHashtags, title: p.title,
@@ -1100,6 +1305,23 @@ async function build() {
   writeFile(path.join(DOCS_DIR, 'index.html'), generateHomePage(posts, 'ru'));
   writeFile(path.join(DOCS_DIR, 'en', 'index.html'), generateHomePage(posts, 'en'));
   console.log('  RU + EN home pages saved');
+
+  // 4b. Generate main feed pagination pages
+  const mainTotalPages = Math.ceil(posts.length / CONFIG.POSTS_PER_PAGE);
+  if (mainTotalPages > 1) {
+    console.log('Generating main feed pagination pages...');
+    let paginationCount = 0;
+    for (const lang of ['ru', 'en']) {
+      for (let pageNum = 2; pageNum <= mainTotalPages; pageNum++) {
+        const dir = lang === 'ru'
+          ? path.join(DOCS_DIR, 'page', String(pageNum))
+          : path.join(DOCS_DIR, 'en', 'page', String(pageNum));
+        writeFile(path.join(dir, 'index.html'), generateListingPage(posts, lang, pageNum, mainTotalPages, posts.length, null));
+        paginationCount++;
+      }
+    }
+    console.log(`  ${paginationCount} main feed pagination pages saved`);
+  }
 
   // 5. Generate post pages
   console.log('Generating post pages...');
@@ -1123,11 +1345,25 @@ async function build() {
       allTags.get(cleanTag).push(post);
     }
   }
+  let tagPaginationCount = 0;
   for (const [tag, tagPosts] of allTags) {
     writeFile(path.join(DOCS_DIR, 'tag', tag, 'index.html'), generateTagPage(tag, tagPosts, posts, 'ru'));
     writeFile(path.join(DOCS_DIR, 'en', 'tag', tag, 'index.html'), generateTagPage(tag, tagPosts, posts, 'en'));
+    // Generate tag pagination pages
+    if (tagPosts.length > CONFIG.POSTS_PER_PAGE) {
+      const tagTotalPages = Math.ceil(tagPosts.length / CONFIG.POSTS_PER_PAGE);
+      for (const lang of ['ru', 'en']) {
+        for (let pageNum = 2; pageNum <= tagTotalPages; pageNum++) {
+          const dir = lang === 'ru'
+            ? path.join(DOCS_DIR, 'tag', tag, 'page', String(pageNum))
+            : path.join(DOCS_DIR, 'en', 'tag', tag, 'page', String(pageNum));
+          writeFile(path.join(dir, 'index.html'), generateListingPage(tagPosts, lang, pageNum, tagTotalPages, tagPosts.length, tag));
+          tagPaginationCount++;
+        }
+      }
+    }
   }
-  console.log(`  ${allTags.size * 2} tag pages saved`);
+  console.log(`  ${allTags.size * 2} tag pages saved` + (tagPaginationCount > 0 ? ` + ${tagPaginationCount} tag pagination pages` : ''));
 
   // 7. Generate sitemap
   console.log('Generating sitemap...');
@@ -1226,80 +1462,6 @@ async function build() {
       for (var i = 0; i < columns; i++) drops[i] = 1;
     });
   };
-
-  // Load More functionality
-  var loadMoreBtn = document.getElementById('loadMoreBtn');
-  if (loadMoreBtn) {
-    var currentPage = parseInt(loadMoreBtn.dataset.page, 10) || 2;
-    var isLoading = false;
-    var lang = loadMoreBtn.dataset.lang || 'ru';
-    var totalPosts = parseInt(loadMoreBtn.dataset.total, 10) || 0;
-    var loadMoreTag = loadMoreBtn.dataset.tag || '';
-    var postsFeed = document.getElementById('postsFeed');
-    var allPostsData = null;
-
-    loadMoreBtn.addEventListener('click', async function() {
-      if (isLoading) return;
-      isLoading = true;
-      loadMoreBtn.classList.add('loading');
-      loadMoreBtn.disabled = true;
-      try {
-        if (!allPostsData) {
-          var response = await fetch('/data/posts.json');
-          if (!response.ok) throw new Error('Failed to load posts');
-          allPostsData = await response.json();
-        }
-        var filtered = loadMoreTag ? allPostsData.filter(function(p) {
-          return p.hashtags && p.hashtags.some(function(h) { return h.replace(/^#+/, '').toLowerCase() === decodeURIComponent(loadMoreTag).toLowerCase(); });
-        }) : allPostsData;
-        var perPage = 30;
-        var start = (currentPage - 1) * perPage;
-        var end = start + perPage;
-        var pagePosts = filtered.slice(start, end);
-        if (pagePosts.length === 0) {
-          loadMoreBtn.style.display = 'none';
-          return;
-        }
-        pagePosts.forEach(function(post) {
-          var article = document.createElement('article');
-          article.className = 'post-feed-item';
-          article.setAttribute('data-post-id', post.id);
-          var mediaHTML = '';
-          if (post.hasMedia && post.media && post.media.length > 0) {
-            var m = post.media[0];
-            mediaHTML = '<div class="post-feed-media"><div class="post-feed-media-item">';
-            if (m.type === 'instagram') {
-              var igText = lang === 'ru' ? 'Смотреть в Instagram' : 'View on Instagram';
-              mediaHTML += '<a href="' + m.directUrl + '" target="_blank" rel="noopener" class="instagram-embed__link"><div class="instagram-embed__placeholder instagram-embed__placeholder--card"><span class="instagram-embed__text">' + igText + '</span></div></a>';
-            } else if (m.type === 'video') {
-              mediaHTML += '<div class="video-container"><div class="video-thumbnail" data-video-src="/m/' + hashStr(m.directUrl) + '"><img src="/m/' + hashStr(m.poster || '${CONFIG.LOGO_URL}') + '" alt="' + post.title + '" loading="lazy"></div></div>';
-            } else {
-              mediaHTML += '<img src="/m/' + hashStr(m.directUrl) + '" alt="' + post.title + '" loading="lazy">';
-            }
-            mediaHTML += '</div></div>';
-          }
-          var dateObj = new Date(post.date);
-          var dateStr = dateObj.toLocaleDateString(lang === 'ru' ? 'ru-RU' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-          var postUrl = lang === 'ru' ? post.postUrl : post.postUrlEn;
-          var btnRead = lang === 'ru' ? 'Читать' : 'Read';
-          article.innerHTML = mediaHTML +
-            '<div class="post-feed-content">' +
-            '<div class="post-feed-meta"><span>' + dateStr + '</span></div>' +
-            '<h3 class="post-feed-title"><a href="' + postUrl + '">' + post.title + '</a></h3>' +
-            '<div class="post-feed-actions"><a href="' + postUrl + '" class="btn btn-read">' + btnRead + '</a></div></div>';
-          postsFeed.appendChild(article);
-        });
-        currentPage++;
-        if (end >= filtered.length) loadMoreBtn.style.display = 'none';
-      } catch (error) {
-        console.error('Load more error:', error);
-      } finally {
-        isLoading = false;
-        loadMoreBtn.classList.remove('loading');
-        loadMoreBtn.disabled = false;
-      }
-    });
-  }
 
   function hashStr(str) {
     if (!str) return '0';
