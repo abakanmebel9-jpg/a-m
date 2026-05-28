@@ -1,7 +1,7 @@
 // ============================================================
 // ABAKANMEBEL Cloudflare Worker — Reverse Proxy to GitHub Pages
 // ============================================================
-// VERSION: 1.0
+// VERSION: 2.0
 // ARCHITECTURE: GitHub Pages (static) -> Cloudflare Worker (proxy) -> Client
 // The worker acts as a reverse proxy to GitHub Pages for all HTML/CSS/JS/JSON content
 // and handles /m/{hash} media proxy requests directly.
@@ -11,19 +11,20 @@ const CONFIG = {
   SITE_URL: 'https://abakanmebel.online',
   LOGO_URL: 'https://i.pinimg.com/736x/99/d6/71/99d67109954a1bc4102f2142a82d2de7.jpg',
   GITHUB_PAGES_URL: 'https://abakanmebel9-jpg.github.io/a-m',
-  GITHUB_JSON_URL: 'https://raw.githubusercontent.com/abakanmebel9-jpg/a-m/main/data/cached_posts.json',
   GITHUB_MEDIA_MAP_URL: 'https://raw.githubusercontent.com/abakanmebel9-jpg/a-m/main/data/media_map.json',
+  GITHUB_POSTS_JSON_URL: 'https://abakanmebel9-jpg.github.io/a-m/data/posts.json',
   MEDIA_CACHE_TTL: 2592000, // 30 days
   HTML_CACHE_TTL: 7200,    // 2 hours
   LOGO_CACHE_TTL: 604800,  // 7 days
-  FETCH_TIMEOUT_MS: 10000,
-  MAX_RETRIES: 2
+  FETCH_TIMEOUT_MS: 15000,
+  MEDIA_MAP_REFRESH_INTERVAL: 3600000, // 1 hour
 };
 
 // ============================================================
 // GLOBAL STATE
 // ============================================================
 let mediaHashMap = new Map();
+let mediaMapLastLoaded = 0;
 let logoCache = { data: null, timestamp: 0, ttl: CONFIG.LOGO_CACHE_TTL };
 
 // ============================================================
@@ -82,16 +83,16 @@ async function proxyToGitHubPages(request, path) {
       ghUrl = CONFIG.GITHUB_PAGES_URL + '/index.html';
     } else if (path.endsWith('/')) {
       ghUrl = CONFIG.GITHUB_PAGES_URL + path + 'index.html';
-    } else if (path.match(/\.(html|css|js|json|xml|txt|ico|png|jpg|svg)$/)) {
+    } else if (path.match(/\.(html|css|js|json|xml|txt|ico|png|jpg|svg|webmanifest)$/)) {
       ghUrl = CONFIG.GITHUB_PAGES_URL + path;
     } else {
-      // Try with /index.html first (for directory-style URLs)
+      // Try with /index.html first (for directory-style URLs like /post/123)
       ghUrl = CONFIG.GITHUB_PAGES_URL + path + '/index.html';
     }
 
     const response = await fetchWithTimeout(ghUrl, {
       headers: {
-        'User-Agent': 'AbakanMebel-Proxy/1.0',
+        'User-Agent': 'AbakanMebel-Proxy/2.0',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
       },
       cf: { cacheTtl: 3600, cacheEverything: true }
@@ -102,7 +103,7 @@ async function proxyToGitHubPages(request, path) {
       if (!path.match(/\.\w+$/)) {
         const directUrl = CONFIG.GITHUB_PAGES_URL + path;
         const directResponse = await fetchWithTimeout(directUrl, {
-          headers: { 'User-Agent': 'AbakanMebel-Proxy/1.0' },
+          headers: { 'User-Agent': 'AbakanMebel-Proxy/2.0' },
           cf: { cacheTtl: 3600, cacheEverything: true }
         });
         if (directResponse.ok) {
@@ -122,7 +123,6 @@ async function proxyToGitHubPages(request, path) {
 
 function buildProxyResponse(upstreamResponse, path) {
   const contentType = upstreamResponse.headers.get('Content-Type') || 'text/html';
-  const isHTML = contentType.includes('text/html');
   const isCSS = contentType.includes('text/css');
   const isJS = contentType.includes('javascript');
   const isJSON = contentType.includes('application/json');
@@ -141,7 +141,6 @@ function buildProxyResponse(upstreamResponse, path) {
     ...SECURITY_HEADERS
   };
 
-  // For HTML, rewrite absolute URLs from GitHub Pages to our domain
   return new Response(upstreamResponse.body, {
     status: upstreamResponse.status,
     headers
@@ -152,9 +151,13 @@ function buildProxyResponse(upstreamResponse, path) {
 // MEDIA PROXY
 // ============================================================
 async function loadMediaMap() {
+  const now = Date.now();
+  if (mediaHashMap.size > 0 && (now - mediaMapLastLoaded) < CONFIG.MEDIA_MAP_REFRESH_INTERVAL) {
+    return; // Still fresh
+  }
   try {
     const response = await fetchWithTimeout(CONFIG.GITHUB_MEDIA_MAP_URL, {
-      headers: { 'User-Agent': 'AbakanMebel-Proxy/1.0' },
+      headers: { 'User-Agent': 'AbakanMebel-Proxy/2.0' },
       cf: { cacheTtl: 3600, cacheEverything: true }
     });
     if (!response.ok) return;
@@ -164,6 +167,7 @@ async function loadMediaMap() {
       for (const [hash, url] of Object.entries(mapData)) {
         mediaHashMap.set(hash, url);
       }
+      mediaMapLastLoaded = now;
       console.log('[Media Map] Loaded', Object.keys(mapData).length, 'entries');
     }
   } catch (error) {
@@ -173,7 +177,7 @@ async function loadMediaMap() {
 
 async function handleMediaProxy(request, mediaHash) {
   try {
-    // Check cache first
+    // Check Cloudflare Cache API first
     const cache = caches.default;
     const cachedResponse = await cache.match(request);
     if (cachedResponse) return cachedResponse;
@@ -189,16 +193,16 @@ async function handleMediaProxy(request, mediaHash) {
     let originalUrl = mediaHashMap.get(mediaHash);
 
     // If not found, try loading media map
-    if (!originalUrl && mediaHashMap.size === 0) {
+    if (!originalUrl) {
       await loadMediaMap();
       originalUrl = mediaHashMap.get(mediaHash);
     }
 
-    // If still not found, try scanning posts data
+    // If still not found, try scanning posts data from GitHub Pages
     if (!originalUrl) {
       try {
-        const postsResponse = await fetchWithTimeout(CONFIG.GITHUB_JSON_URL, {
-          headers: { 'User-Agent': 'AbakanMebel-Proxy/1.0' },
+        const postsResponse = await fetchWithTimeout(CONFIG.GITHUB_POSTS_JSON_URL, {
+          headers: { 'User-Agent': 'AbakanMebel-Proxy/2.0' },
           cf: { cacheTtl: 3600, cacheEverything: true }
         });
         if (postsResponse.ok) {
@@ -206,22 +210,11 @@ async function handleMediaProxy(request, mediaHash) {
           if (Array.isArray(posts)) {
             for (const post of posts) {
               // Check photo_urls
-              if (post.photo_urls && Array.isArray(post.photo_urls)) {
-                for (const url of post.photo_urls) {
-                  if (generateMediaHash(url) === mediaHash) {
-                    originalUrl = url;
-                    mediaHashMap.set(mediaHash, url);
-                    break;
-                  }
-                }
-              }
-              if (originalUrl) break;
-              // Check video_urls
-              if (post.video_urls && Array.isArray(post.video_urls)) {
-                for (const url of post.video_urls) {
-                  if (generateMediaHash(url) === mediaHash) {
-                    originalUrl = url;
-                    mediaHashMap.set(mediaHash, url);
+              if (post.media && Array.isArray(post.media)) {
+                for (const m of post.media) {
+                  if (m.directUrl && generateMediaHash(m.directUrl) === mediaHash) {
+                    originalUrl = m.directUrl;
+                    mediaHashMap.set(mediaHash, m.directUrl);
                     break;
                   }
                 }
@@ -241,7 +234,7 @@ async function handleMediaProxy(request, mediaHash) {
 
     // Fetch the original media
     const response = await fetchWithTimeout(originalUrl, {
-      headers: { 'User-Agent': 'AbakanMebel-MediaProxy/1.0', 'Accept': 'image/*,video/*' }
+      headers: { 'User-Agent': 'AbakanMebel-MediaProxy/2.0', 'Accept': 'image/*,video/*' }
     });
 
     if (!response.ok) {
@@ -292,7 +285,7 @@ async function handleLogoRequest() {
   }
   try {
     const response = await fetchWithTimeout(CONFIG.LOGO_URL, {
-      headers: { 'User-Agent': 'AbakanMebel-Proxy/1.0', 'Accept': 'image/*' }
+      headers: { 'User-Agent': 'AbakanMebel-Proxy/2.0', 'Accept': 'image/*' }
     });
     if (!response.ok) throw new Error('Logo fetch failed');
     const imageBuffer = await response.arrayBuffer();
@@ -322,7 +315,7 @@ async function handleLogoRequest() {
 // ERROR RESPONSES
 // ============================================================
 function generate404Response() {
-  const html = `<!DOCTYPE html><html lang="ru" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>404 — АбаканМебель</title><link rel="stylesheet" href="https://abakanmebel9-jpg.github.io/a-m/css/style.css"></head><body style="display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center"><div><h1 style="font-size:4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">404</h1><p style="font-size:1.2rem;color:var(--text-secondary);margin:16px 0">Страница не найдена</p><a href="/" class="btn btn--primary">На главную</a></div></body></html>`;
+  const html = `<!DOCTYPE html><html lang="ru" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>404 — АбаканМебель</title><link rel="stylesheet" href="/css/style.css"></head><body style="display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center"><div><h1 style="font-size:4rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">404</h1><p style="font-size:1.2rem;color:var(--text-secondary);margin:16px 0">Страница не найдена</p><a href="/" class="btn btn--primary">На главную</a></div></body></html>`;
   return new Response(html, {
     status: 404,
     headers: {
@@ -370,6 +363,11 @@ export default {
       return new Response('Method Not Allowed', { status: 405 });
     }
 
+    // Pre-load media map in background on first request
+    if (mediaHashMap.size === 0) {
+      ctx.waitUntil(loadMediaMap());
+    }
+
     // ============================================================
     // ROUTE: Media proxy /m/{hash}
     // ============================================================
@@ -406,9 +404,10 @@ export default {
       if (path === '/api/health') {
         return new Response(JSON.stringify({
           status: 'ok',
-          version: '1.0-proxy',
+          version: '2.0-proxy',
           architecture: 'github-pages-proxy',
           mediaMapSize: mediaHashMap.size,
+          mediaMapAge: mediaMapLastLoaded ? Math.round((Date.now() - mediaMapLastLoaded) / 60000) + 'min' : 'not-loaded',
           timestamp: new Date().toISOString()
         }), {
           headers: { 'Content-Type': 'application/json', ...SECURITY_HEADERS }
@@ -448,5 +447,12 @@ export default {
     // ROUTE: All other requests — proxy to GitHub Pages
     // ============================================================
     return proxyToGitHubPages(request, path);
+  },
+
+  // ============================================================
+  // SCHEDULED HANDLER — refresh media map periodically
+  // ============================================================
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(loadMediaMap());
   }
 };

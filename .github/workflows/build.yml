@@ -28,10 +28,9 @@ jobs:
       - name: Build static site
         run: node build.js
 
-      - name: Ensure .nojekyll and CNAME
+      - name: Ensure .nojekyll
         run: |
           touch docs/.nojekyll
-          echo "abakanmebel.online" > docs/CNAME
 
       - name: Commit and push if changed
         run: |
