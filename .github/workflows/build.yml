@@ -1,13 +1,12 @@
-name: Build & Deploy Static Site
+name: Build Site
 
 on:
+  workflow_dispatch:  # Только ручной запуск
   push:
     branches: [main]
     paths:
-      - 'data/**'
       - 'build.js'
       - '.github/workflows/build.yml'
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,7 +14,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -29,8 +28,7 @@ jobs:
         run: node build.js
 
       - name: Ensure .nojekyll
-        run: |
-          touch docs/.nojekyll
+        run: touch docs/.nojekyll
 
       - name: Commit and push if changed
         run: |

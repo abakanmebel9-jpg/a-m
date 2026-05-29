@@ -1,38 +1,47 @@
-name: Telegram Parser
+name: Parse & Build
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Запуск каждый час
-  workflow_dispatch:     # Ручной запуск
+    - cron: '0 * * * *'  # Каждый час
+  workflow_dispatch:       # Ручной запуск
 
-# ✅ Добавляем права на запись
 permissions:
   contents: write
 
 jobs:
-  parse:
+  parse-and-build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5  # Node.js 24
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v6  # Node.js 24
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
 
-      - name: Run parser
+      - name: Parse Telegram channel
         run: python telegram_parser.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build static site
+        run: node build.js
+
+      - name: Ensure .nojekyll
+        run: touch docs/.nojekyll
 
       - name: Commit and push if changed
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/
-          git diff --staged --quiet || git commit -m "Update posts data [skip ci]"
+          git add data/ docs/
+          git diff --staged --quiet || git commit -m "auto: parse & rebuild [skip ci]"
           git push
