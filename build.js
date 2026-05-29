@@ -37,9 +37,7 @@ const CONFIG = {
   POSTS_PER_PAGE: 20,
   MAX_POSTS: 5000,
   MAX_MEDIA_PER_POST: 20,
-  MAX_HASHTAGS_PER_POST: 12,
-  HASHTAG_MIN_LENGTH: 3,
-  POPULAR_TAGS_LIMIT: 12,
+  // Hashtag generation removed — no auto-generated hashtags
   RELATED_POSTS_LIMIT: 30,
   RELATED_POSTS_COUNT: 7,
   DEFAULT_THEME: 'dark',
@@ -146,24 +144,7 @@ function extractKeywordsFromText(text) {
   return [...new Set(filtered)].slice(0, 15);
 }
 
-function generateHashtagsFromKeywords(keywords) {
-  if (!keywords || keywords.length === 0) return ['#мебель', '#кухни', '#Абакан'];
-  const hashtags = [];
-  const seen = new Set();
-  for (let i = 0; i < keywords.length && hashtags.length < CONFIG.MAX_HASHTAGS_PER_POST; i++) {
-    const keyword = keywords[i];
-    if (keyword.length < CONFIG.HASHTAG_MIN_LENGTH) continue;
-    const hashtag = '#' + keyword.toLowerCase().replace(/[^a-zа-яё0-9]/g, '');
-    if (!seen.has(hashtag)) { seen.add(hashtag); hashtags.push(hashtag); }
-  }
-  if (hashtags.length < 3) {
-    const defaults = ['#мебель', '#кухни', '#Абакан', '#шкафы', '#ремонт'];
-    for (const def of defaults) {
-      if (!seen.has(def) && hashtags.length < CONFIG.MAX_HASHTAGS_PER_POST) hashtags.push(def);
-    }
-  }
-  return hashtags.slice(0, CONFIG.MAX_HASHTAGS_PER_POST);
-}
+// Hashtag generation removed
 
 function formatPostText(text, lang = 'ru') {
   if (!text || typeof text !== 'string') return '';
@@ -174,10 +155,7 @@ function formatPostText(text, lang = 'ru') {
     urlPlaceholders.push(match);
     return `%%URL_${urlPlaceholders.length - 1}%%`;
   });
-  formatted = formatted.replace(/#([\p{L}\p{N}_]+)/gu, (match, hashtag) => {
-    const tagUrl = `${CONFIG.SITE_URL}/${lang === 'en' ? 'en/' : ''}tag/${encodeURIComponent(hashtag)}`;
-    return `<a href="${tagUrl}" class="hashtag" data-hashtag="${hashtag}">#${hashtag}</a>`;
-  });
+  // Hashtags remain as plain text (no tag links)
   formatted = formatted.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
   formatted = formatted.replace(/%%URL_(\d+)%%/g, (match, idx) => {
     const url = urlPlaceholders[parseInt(idx, 10)];
@@ -263,20 +241,18 @@ function transformGitHubPost(post, index) {
   const title = textClean.length > 50 ? textClean.substring(0, 50).replace(/\s+$/, '') + '...' : (textClean || 'Проект мебели');
   const slug = generateSlugFromTitle(title, numericId);
   const keywords = extractKeywordsFromText(textClean);
-  const hashtags = generateHashtagsFromKeywords(keywords);
-  const textWithHashtags = textClean + (hashtags.length > 0 ? '\n\n' + hashtags.join(' ') : '');
   const numericPostId = extractNumericId(numericId);
   const telegramLink = CONFIG.TELEGRAM_WEB + '/' + numericPostId;
-  const postUrl = CONFIG.SITE_URL + '/post/' + numericPostId;
-  const postUrlEn = CONFIG.SITE_URL + '/en/post/' + numericPostId;
-  const ampUrl = CONFIG.SITE_URL + '/post/' + numericPostId + '/amp';
-  const ampUrlEn = CONFIG.SITE_URL + '/en/post/' + numericPostId + '/amp';
+  const postUrl = CONFIG.SITE_URL + '/post/' + slug;
+  const postUrlEn = CONFIG.SITE_URL + '/en/post/' + slug;
+  const ampUrl = CONFIG.SITE_URL + '/post/' + slug + '/amp';
+  const ampUrlEn = CONFIG.SITE_URL + '/en/post/' + slug + '/amp';
 
   return {
     id: numericPostId, originalId: post.id || numericPostId, slug, numericId: numericPostId,
-    date, text: textClean, textWithHashtags, title, media, hasMedia: media.length > 0,
+    date, text: textClean, title, media, hasMedia: media.length > 0,
     mediaCount: media.length, instagramUrl, telegramLink, postUrl, postUrlEn, ampUrl, ampUrlEn,
-    keywords, hashtags
+    keywords
   };
 }
 
@@ -338,7 +314,7 @@ const LANGUAGES = {
     postHomeBtn: 'На главную', postTelegramBtn: 'В Telegram',
     relatedPostsTitle: 'Рекомендуемые проекты', relatedPostsSubtitle: 'Посмотрите другие наши работы',
     btnLoadMore: 'Загрузить ещё', btnAllLoaded: 'Все посты загружены',
-    popularTagsTitle: 'Популярные теги', tagTitle: 'Проекты по тегу', tagPostsFound: 'Найдено проектов',
+    // Tag-related strings removed
     pageXofY: 'Страница {X} из {Y}', pagePrev: 'Назад', pageNext: 'Вперёд',
     faqItems: [
       { q: "Сколько стоит кухня на заказ в Абакане?", a: "Стоимость зависит от размеров, материалов и фурнитуры. Средняя цена кухни от 45 000 рублей. Бесплатный расчёт после замера." },
@@ -382,7 +358,7 @@ const LANGUAGES = {
     postHomeBtn: 'Go Home', postTelegramBtn: 'In Telegram',
     relatedPostsTitle: 'Recommended Projects', relatedPostsSubtitle: 'Check out our other works',
     btnLoadMore: 'Load More', btnAllLoaded: 'All posts loaded',
-    popularTagsTitle: 'Popular Tags', tagTitle: 'Projects tagged', tagPostsFound: 'projects found',
+    // Tag-related strings removed
     pageXofY: 'Page {X} of {Y}', pagePrev: 'Previous', pageNext: 'Next',
     faqItems: [
       { q: "How much does a custom kitchen cost in Abakan?", a: "Cost depends on size, materials and hardware. Average kitchen price from 45,000 rubles. Free calculation after measurement." },
@@ -445,19 +421,10 @@ function getHeaderHTML(lang, navType = 'home') {
   </header>`;
 }
 
-function getFooterHTML(lang, posts) {
+function getFooterHTML(lang) {
   const t = LANGUAGES[lang];
   const currentYear = getCurrentYear();
-  const tags = getPopularTags(posts);
-  let tagsHTML = '';
-  if (tags && tags.length > 0) {
-    tagsHTML = `\n<div class="footer-tags">\n<div class="footer-tags-title">${t.popularTagsTitle}</div>\n<div class="footer-tags-list">\n` +
-      tags.map(tag => {
-        const tagUrl = lang === 'ru' ? `/tag/${encodeURIComponent(tag)}` : `/en/tag/${encodeURIComponent(tag)}`;
-        return `<a href="${tagUrl}" class="footer-tag">#${escapeHTML(tag)}</a>`;
-      }).join('') + '\n</div>\n</div>';
-  }
-  return `<footer class="footer">\n<div class="container footer__bottom">\n<p>&copy; ${currentYear} ${t.companyName}. ${t.footerRights}.</p>${tagsHTML}\n</div>\n</footer>`;
+  return `<footer class="footer">\n<div class="container footer__bottom">\n<p>&copy; ${currentYear} ${t.companyName}. ${t.footerRights}.</p>\n</div>\n</footer>`;
 }
 
 function getFloatingButtonsHTML() {
@@ -552,7 +519,7 @@ function generatePostsHTML(posts, lang) {
     const dateStr = new Date(post.date).toLocaleDateString(lang === 'ru' ? 'ru-RU' : 'en-US', {
       year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
     });
-    const textToDisplay = post.textWithHashtags || post.text || '';
+    const textToDisplay = post.text || '';
     const btnRead = lang === 'ru' ? 'Читать' : 'Read';
     return `<article class="post-feed-item" data-post-id="${escapeHTML(post.id.toString())}">
       ${mediaBlock}
@@ -658,53 +625,30 @@ function generatePaginationHTML(currentPage, totalPages, lang, basePath) {
   return html;
 }
 
-function generateListingPage(posts, lang, pageNum, totalPages, totalPosts, tag) {
+function generateListingPage(posts, lang, pageNum, totalPages, totalPosts) {
   const t = LANGUAGES[lang];
   const langPrefix = lang === 'en' ? '/en' : '';
   const homeUrl = CONFIG.SITE_URL + langPrefix + '/';
   const pagePosts = posts.slice((pageNum - 1) * CONFIG.POSTS_PER_PAGE, pageNum * CONFIG.POSTS_PER_PAGE);
   const pageCounter = t.pageXofY.replace('{X}', pageNum).replace('{Y}', totalPages) + ' (' + totalPosts + (lang === 'ru' ? ' проектов)' : ' projects)');
 
-  let title, description, canonicalUrl, breadcrumbSchema;
-  if (tag) {
-    title = `#${tag} — ${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum} | ${t.companyName}`;
-    description = lang === 'ru'
-      ? `Проекты по тегу #${tag}, страница ${pageNum}. Найдено ${totalPosts} работ.`
-      : `Projects tagged #${tag}, page ${pageNum}. Found ${totalPosts} works.`;
-    canonicalUrl = lang === 'ru'
-      ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${pageNum}`
-      : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${pageNum}`;
-    breadcrumbSchema = generateBreadcrumbSchema([
-      { name: t.companyName, url: homeUrl },
-      { name: '#' + tag, url: lang === 'ru' ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}` : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}` },
-      { name: `${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum}`, url: canonicalUrl }
-    ]);
-  } else {
-    title = `${t.feedTitle} — ${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum} | ${t.companyName}`;
-    description = lang === 'ru'
-      ? `Лента проектов, страница ${pageNum} из ${totalPages}. Всего ${totalPosts} проектов.`
-      : `Project feed, page ${pageNum} of ${totalPages}. Total ${totalPosts} projects.`;
-    canonicalUrl = lang === 'ru'
-      ? `${CONFIG.SITE_URL}/page/${pageNum}`
-      : `${CONFIG.SITE_URL}/en/page/${pageNum}`;
-    breadcrumbSchema = generateBreadcrumbSchema([
-      { name: t.companyName, url: homeUrl },
-      { name: `${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum}`, url: canonicalUrl }
-    ]);
-  }
+  const title = `${t.feedTitle} — ${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum} | ${t.companyName}`;
+  const description = lang === 'ru'
+    ? `Лента проектов, страница ${pageNum} из ${totalPages}. Всего ${totalPosts} проектов.`
+    : `Project feed, page ${pageNum} of ${totalPages}. Total ${totalPosts} projects.`;
+  const canonicalUrl = lang === 'ru'
+    ? `${CONFIG.SITE_URL}/page/${pageNum}`
+    : `${CONFIG.SITE_URL}/en/page/${pageNum}`;
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: t.companyName, url: homeUrl },
+    { name: `${lang === 'ru' ? 'Страница' : 'Page'} ${pageNum}`, url: canonicalUrl }
+  ]);
 
-  const basePath = tag ? `/tag/${encodeURIComponent(tag)}/` : '/';
-  const prevUrl = pageNum > 1
-    ? (pageNum === 2 ? (lang === 'en' ? '/en' + (tag ? `/tag/${encodeURIComponent(tag)}` : '') + '/' : (tag ? `/tag/${encodeURIComponent(tag)}` : '') + '/') : (lang === 'en' ? '/en' : '') + (tag ? `/tag/${encodeURIComponent(tag)}` : '') + `/page/${pageNum - 1}/`)
-    : null;
-  const nextUrl = pageNum < totalPages
-    ? (lang === 'en' ? '/en' : '') + (tag ? `/tag/${encodeURIComponent(tag)}` : '') + `/page/${pageNum + 1}/`
-    : null;
-
+  const basePath = '/';
   let relLinks = '';
   if (pageNum > 1) {
     const prevCanonical = pageNum === 2
-      ? (tag ? (lang === 'en' ? `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}` : `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}`) : (lang === 'en' ? `${CONFIG.SITE_URL}/en/` : `${CONFIG.SITE_URL}`))
+      ? (lang === 'en' ? `${CONFIG.SITE_URL}/en/` : `${CONFIG.SITE_URL}`)
       : canonicalUrl.replace(/\/page\/\d+\/$/, `/page/${pageNum - 1}/`);
     relLinks += `<link rel="prev" href="${prevCanonical}">`;
   }
@@ -740,7 +684,7 @@ function generateListingPage(posts, lang, pageNum, totalPages, totalPosts, tag) 
     <section class="section" id="projects">
       <div class="container">
         <div class="section__header">
-          <h1 class="section__title">${tag ? t.tagTitle + ' <span class="hero__highlight">#' + escapeHTML(tag) + '</span>' : t.feedTitle}</h1>
+          <h1 class="section__title">${t.feedTitle}</h1>
           <p class="section__desc">${pageCounter}</p>
         </div>
         <div class="posts-feed-wrapper">
@@ -752,40 +696,14 @@ function generateListingPage(posts, lang, pageNum, totalPages, totalPosts, tag) 
       </div>
     </section>
   </main>
-  ${getFooterHTML(lang, posts)}
+  ${getFooterHTML(lang)}
   ${getFloatingButtonsHTML()}
   ${getClientJS(lang)}
 </body>
 </html>`;
 }
 
-// ============================================================
-// TAG FUNCTIONS
-// ============================================================
-function findPostsByTag(posts, tag) {
-  if (!tag || !posts) return [];
-  let decodedTag;
-  try { decodedTag = decodeURIComponent(tag).toLowerCase(); } catch { decodedTag = tag.toLowerCase(); }
-  decodedTag = decodedTag.replace(/^#+/, '');
-  return posts.filter(post => {
-    if (!post) return false;
-    if (post.hashtags && post.hashtags.some(h => h.replace(/^#+/, '').toLowerCase() === decodedTag)) return true;
-    const textToSearch = (post.textWithHashtags || post.text || '').toLowerCase();
-    return textToSearch.includes('#' + decodedTag);
-  });
-}
-
-function getPopularTags(posts, limit = CONFIG.POPULAR_TAGS_LIMIT) {
-  const tagCounts = new Map();
-  for (const post of posts) {
-    if (!post || !post.hashtags) continue;
-    for (const tag of post.hashtags) {
-      const cleanTag = tag.replace(/^#+/, '').toLowerCase();
-      tagCounts.set(cleanTag, (tagCounts.get(cleanTag) || 0) + 1);
-    }
-  }
-  return Array.from(tagCounts.entries()).sort((a, b) => b[1] - a[1]).slice(0, limit).map(([tag]) => tag);
-}
+// Tag functions removed (findPostsByTag, getPopularTags)
 
 function findRelatedPosts(currentPost, allPosts, limit = 7) {
   if (!currentPost || !allPosts) return [];
@@ -1004,7 +922,7 @@ function generateHomePage(posts, lang) {
       </div>
     </section>
   </main>
-  ${getFooterHTML(lang, posts)}
+  ${getFooterHTML(lang)}
   ${getFloatingButtonsHTML()}
   ${getClientJS(lang)}
 </body>
@@ -1033,7 +951,7 @@ function generatePostPage(post, posts, lang) {
   <meta property="og:locale" content="${lang === 'ru' ? 'ru_RU' : 'en_US'}">
   <meta property="article:published_time" content="${new Date(post.date).toISOString()}">
   <meta property="article:section" content="${CONFIG.GOOGLE_NEWS_CATEGORY}">
-  ${post.hashtags && post.hashtags.length > 0 ? post.hashtags.slice(0, 10).map(tag => `<meta property="article:tag" content="${escapeHTML(tag)}">`).join('\n  ') : ''}
+  <!-- article:tag removed -->
   <meta name="twitter:card" content="summary_large_image">
   ${generateExtraSEOMeta(ogImage, lang)}
   <script type="application/ld+json">${STATIC_ORG_SCHEMA}</script>
@@ -1065,11 +983,9 @@ function generatePostPage(post, posts, lang) {
         </header>
         ${galleryBlock}
         <div class="post__content">
-          <div class="post__text">${formatPostText(post.textWithHashtags || post.text, lang)}</div>
+          <div class="post__text">${formatPostText(post.text, lang)}</div>
         </div>
-        ${post.hashtags && post.hashtags.length > 0 ? `<div class="post__tags">
-          ${post.hashtags.map(tag => `<a href="${homeUrl}tag/${encodeURIComponent(tag.replace(/^#+/, ''))}" class="tag">#${escapeHTML(tag)}</a>`).join('')}
-        </div>` : ''}
+        <!-- post__tags removed -->
         <div class="post-actions">
           <a href="${homeUrl}" class="btn btn-home">&#127968; ${t.postHomeBtn}</a>
           <a href="${post.telegramLink}" target="_blank" rel="noopener" class="btn btn-telegram">${TELEGRAM_LOGO_SVG} ${t.postTelegramBtn}</a>
@@ -1098,84 +1014,14 @@ function generatePostPage(post, posts, lang) {
       </div>
     </div>
   </main>
-  ${getFooterHTML(lang, posts)}
+  ${getFooterHTML(lang)}
   ${getFloatingButtonsHTML()}
   ${getClientJS(lang)}
 </body>
 </html>`;
 }
 
-function generateTagPage(tag, tagPosts, allPosts, lang) {
-  const t = LANGUAGES[lang];
-  const langPrefix = lang === 'en' ? '/en' : '';
-  const homeUrl = CONFIG.SITE_URL + langPrefix + '/';
-  const totalPages = Math.ceil(tagPosts.length / CONFIG.POSTS_PER_PAGE);
-  const initialPosts = tagPosts.slice(0, CONFIG.POSTS_PER_PAGE);
-  const pageCounter = totalPages > 1
-    ? t.pageXofY.replace('{X}', '1').replace('{Y}', totalPages) + ' (' + tagPosts.length + (lang === 'ru' ? ' проектов)' : ' projects)')
-    : t.tagPostsFound + ': ' + tagPosts.length;
-  const seoTitle = `#${tag} — ${lang === 'ru' ? 'Мебель и проекты' : 'Furniture Projects'} | ${t.companyName}`;
-  const seoDesc = lang === 'ru'
-    ? `Все проекты по тегу #${tag}. Найдено ${tagPosts.length} работ. Кухни, шкафы-купе и мебель на заказ в Абакане.`
-    : `All projects tagged #${tag}. Found ${tagPosts.length} works. Custom kitchens, wardrobes and furniture in Abakan.`;
-  const canonicalUrl = lang === 'ru' ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}` : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}`;
-  const basePath = `/tag/${encodeURIComponent(tag)}/`;
-
-  let relNext = '';
-  if (totalPages > 1) {
-    const nextCanonical = lang === 'ru' ? `${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/2/` : `${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/2/`;
-    relNext = `<link rel="next" href="${nextCanonical}">`;
-  }
-
-  return `<!DOCTYPE html>
-<html lang="${lang}" data-theme="${CONFIG.DEFAULT_THEME}">
-<head>
-  ${getCommonHeadHTML(seoTitle, seoDesc, `${tag}, #${tag}, мебель Абакан`, canonicalUrl, lang, `
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="${canonicalUrl}">
-  <meta property="og:title" content="${escapeHTML(seoTitle)}">
-  <meta property="og:description" content="${escapeHTML(seoDesc)}">
-  <meta property="og:image" content="${CONFIG.LOGO_URL}">
-  <meta property="og:site_name" content="${t.companyName}">
-  <meta name="twitter:card" content="summary_large_image">
-  ${generateExtraSEOMeta(CONFIG.LOGO_URL, lang)}
-  ${relNext}
-  <script type="application/ld+json">${STATIC_ORG_SCHEMA}</script>
-  <script type="application/ld+json">${generateWebSiteSchema(lang)}</script>
-  <script type="application/ld+json">${generateBreadcrumbSchema([{ name: t.companyName, url: homeUrl }, { name: '#' + tag, url: canonicalUrl }])}</script>
-  <script type="application/ld+json">${generateItemListSchema(tagPosts, lang)}</script>`)}
-</head>
-<body>
-  <canvas id="matrix-bg"></canvas>
-  <div class="scroll-progress" id="scrollProgress"></div>
-  ${getHeaderHTML(lang, 'tag')}
-  <main id="main-content">
-    <section class="hero">
-      <div class="container hero__container" style="grid-template-columns: 1fr; text-align: center;">
-        <div class="hero__content" style="max-width: 800px; margin: 0 auto;">
-          <h1 class="hero__title">${t.tagTitle} <span class="hero__highlight">#${escapeHTML(tag)}</span></h1>
-          <p class="hero__desc">${pageCounter}</p>
-          <div class="hero__actions" style="justify-content: center;">
-            <a href="${homeUrl}" class="btn btn--primary">${t.navHome}</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="posts-feed-wrapper">
-          <div class="posts-feed" id="postsFeed">${generatePostsHTML(initialPosts, lang)}</div>
-        </div>
-        ${generatePaginationHTML(1, totalPages, lang, basePath)}
-      </div>
-    </section>
-  </main>
-  ${getFooterHTML(lang, allPosts)}
-  ${getFloatingButtonsHTML()}
-  ${getClientJS(lang)}
-</body>
-</html>`;
-}
+// generateTagPage removed — tag pages no longer generated
 
 // ============================================================
 // SITEMAP, RSS, ROBOTS, MANIFEST
@@ -1205,21 +1051,7 @@ function generateSitemap(posts) {
     xml += `<url><loc>${CONFIG.SITE_URL}/en/page/${n}/</loc><changefreq>daily</changefreq><priority>0.7</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/page/${n}/"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/page/${n}/"/></url>\n`;
   }
-  // Tag pages
-  const tags = getPopularTags(posts, 20);
-  for (const tag of tags) {
-    xml += `<url><loc>${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}</loc><changefreq>weekly</changefreq><priority>0.6</priority>
-      <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}"/></url>\n`;
-    // Tag pagination pages
-    const tagPosts = findPostsByTag(posts, tag);
-    const tagTotalPages = Math.ceil(tagPosts.length / CONFIG.POSTS_PER_PAGE);
-    for (let n = 2; n <= tagTotalPages; n++) {
-      xml += `<url><loc>${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${n}/</loc><changefreq>weekly</changefreq><priority>0.5</priority>
-        <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${n}/"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${n}/"/></url>\n`;
-      xml += `<url><loc>${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${n}/</loc><changefreq>weekly</changefreq><priority>0.4</priority>
-        <xhtml:link rel="alternate" hreflang="ru" href="${CONFIG.SITE_URL}/tag/${encodeURIComponent(tag)}/page/${n}/"/><xhtml:link rel="alternate" hreflang="en" href="${CONFIG.SITE_URL}/en/tag/${encodeURIComponent(tag)}/page/${n}/"/></url>\n`;
-    }
-  }
+  // Tag pages removed from sitemap
   xml += '</urlset>';
   return xml;
 }
@@ -1292,8 +1124,8 @@ async function build() {
   // 3. Generate posts data JSON for client-side use
   console.log('Generating posts data JSON...');
   const postsJsonData = posts.map(p => ({
-    id: p.id, date: p.date, text: p.text, textWithHashtags: p.textWithHashtags, title: p.title,
-    media: p.media, hasMedia: p.hasMedia, mediaCount: p.mediaCount, hashtags: p.hashtags,
+    id: p.id, slug: p.slug, date: p.date, text: p.text, title: p.title,
+    media: p.media, hasMedia: p.hasMedia, mediaCount: p.mediaCount,
     keywords: p.keywords, telegramLink: p.telegramLink, postUrl: p.postUrl, postUrlEn: p.postUrlEn,
     ampUrl: p.ampUrl, ampUrlEn: p.ampUrlEn
   }));
@@ -1316,7 +1148,7 @@ async function build() {
         const dir = lang === 'ru'
           ? path.join(DOCS_DIR, 'page', String(pageNum))
           : path.join(DOCS_DIR, 'en', 'page', String(pageNum));
-        writeFile(path.join(dir, 'index.html'), generateListingPage(posts, lang, pageNum, mainTotalPages, posts.length, null));
+        writeFile(path.join(dir, 'index.html'), generateListingPage(posts, lang, pageNum, mainTotalPages, posts.length));
         paginationCount++;
       }
     }
@@ -1327,43 +1159,14 @@ async function build() {
   console.log('Generating post pages...');
   let postCount = 0;
   for (const post of posts) {
-    writeFile(path.join(DOCS_DIR, 'post', post.id, 'index.html'), generatePostPage(post, posts, 'ru'));
-    writeFile(path.join(DOCS_DIR, 'en', 'post', post.id, 'index.html'), generatePostPage(post, posts, 'en'));
+    writeFile(path.join(DOCS_DIR, 'post', post.slug, 'index.html'), generatePostPage(post, posts, 'ru'));
+    writeFile(path.join(DOCS_DIR, 'en', 'post', post.slug, 'index.html'), generatePostPage(post, posts, 'en'));
     postCount++;
     if (postCount % 50 === 0) process.stdout.write(`  ${postCount}/${posts.length} posts...\n`);
   }
   console.log(`  ${posts.length * 2} post pages saved`);
 
-  // 6. Generate tag pages
-  console.log('Generating tag pages...');
-  const allTags = new Map();
-  for (const post of posts) {
-    if (!post.hashtags) continue;
-    for (const tag of post.hashtags) {
-      const cleanTag = tag.replace(/^#+/, '').toLowerCase();
-      if (!allTags.has(cleanTag)) allTags.set(cleanTag, []);
-      allTags.get(cleanTag).push(post);
-    }
-  }
-  let tagPaginationCount = 0;
-  for (const [tag, tagPosts] of allTags) {
-    writeFile(path.join(DOCS_DIR, 'tag', tag, 'index.html'), generateTagPage(tag, tagPosts, posts, 'ru'));
-    writeFile(path.join(DOCS_DIR, 'en', 'tag', tag, 'index.html'), generateTagPage(tag, tagPosts, posts, 'en'));
-    // Generate tag pagination pages
-    if (tagPosts.length > CONFIG.POSTS_PER_PAGE) {
-      const tagTotalPages = Math.ceil(tagPosts.length / CONFIG.POSTS_PER_PAGE);
-      for (const lang of ['ru', 'en']) {
-        for (let pageNum = 2; pageNum <= tagTotalPages; pageNum++) {
-          const dir = lang === 'ru'
-            ? path.join(DOCS_DIR, 'tag', tag, 'page', String(pageNum))
-            : path.join(DOCS_DIR, 'en', 'tag', tag, 'page', String(pageNum));
-          writeFile(path.join(dir, 'index.html'), generateListingPage(tagPosts, lang, pageNum, tagTotalPages, tagPosts.length, tag));
-          tagPaginationCount++;
-        }
-      }
-    }
-  }
-  console.log(`  ${allTags.size * 2} tag pages saved` + (tagPaginationCount > 0 ? ` + ${tagPaginationCount} tag pagination pages` : ''));
+  // 6. Tag pages removed — no longer generated
 
   // 7. Generate sitemap
   console.log('Generating sitemap...');
@@ -1475,14 +1278,13 @@ async function build() {
   // Summary
   console.log('\n=== BUILD COMPLETE ===');
   console.log(`Posts: ${posts.length}`);
-  console.log(`Tags: ${allTags.size}`);
   console.log(`Languages: ru, en`);
   console.log('Output: docs/');
   console.log('\nFiles generated:');
   console.log('  - index.html (RU home)');
   console.log('  - en/index.html (EN home)');
-  console.log(`  - ${posts.length * 2} post pages`);
-  console.log(`  - ${allTags.size * 2} tag pages`);
+  console.log(`  - ${posts.length * 2} post pages (slug URLs)`);
+  console.log(`  - ${mainTotalPages > 1 ? (mainTotalPages - 1) * 2 : 0} pagination pages`);
   console.log('  - sitemap.xml');
   console.log('  - rss.xml + en/rss.xml');
   console.log('  - robots.txt');
