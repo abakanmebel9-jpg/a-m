@@ -4,34 +4,52 @@
     "date": "2026-07-16T11:52:45+00:00",
     "text": "{«role»: «assistant», «reasoning»: «We need to produce a post for the channel @abakan_mebel about a news: Jil Sander expands Thonet collaboration, new lounge chair and table. Must be 3-5 sentences? Wait earlier: \\»Напиши пост для канала — мебель/интерьер: идеи, тренды, советы, материалы, стили. 3-5 предложений, с эмодзи, живо, профессионально. Женский род. Без политики/войны. По-русски. НИКОГДА не начинай с 'Даша: '. \\«\\n\\nBut then later: \\»УНИКАЛИЗАЦИЯ (обязательно): … \\« and \\»СТИЛЬ (как раньше писала Даша): — 800-1050 символов, живой экспертный разбор от первого лица\\\". That's contradictory: 3-5 sentences vs 800-1050 characters. Let’s see: They ask for a post, may be 800-1050 characters ~ around 150-200 words. And they also say 3-5 sentences. Probably they want 3-5 sentences with 800-1050 characters?…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
     "photo_urls": [
-      "https://cdn4.telesco.pe/file/uKatDfEhkUvT6AunUgol6BKH9qyHJgm7DZLpluSbqeoGhJWAjzw--QYvPpg4gy78lHn8rwE9nu71ygNK68Hr1UjRdKyowbOatCXO4GFW6PyvFyDsmtB55OAf3eSoJmsaIP4yRoO53JQcXQjixxhBH3571qxFZZ3aF9UVC_E8uulAEAp8bcZerRX4OME3pm4yI_o7MOZJaJ6-mtBXoRxDaW37pXpORbormGLH5ZfSHXEDFj0nVyi05V7gfsNzQ9y9fHOqdI8VLxLQbKIZ_xSGnOzqt5X6VxOTmulpk29rW2-kTnB9umtQ6Ho2Nu2jkmliVaKj3TNnoGOqlqlEyGaf0A.jpg",
-      "https://cdn4.telesco.pe/file/YXVGYJ4G_iwNzuUzW1baswi1p2vBrmQaG9xrRpaoWC91hy1s9pINaVJjfLAHP-2ItgahZz-MjktG9sQnuUAP8lGUiUNS-BT2CqzgZ9RU9PIv9Y9MzldCYSSv9dS8IkmjgSIfA5DXYdDZHLLRe5oK-G2GiIvpLoCJ2dmS3LwfaMVYf0fdR8OCeLPnUV1-eXya4d1gJbS8juqYmXic6mx-6ZLM3oiWOKhjnXVpgw0BHDtdSagfrp87uwUyvWrZVM50i_K3e75cB06188yW5n8gIJTVQeTsO7oLnwt0KBHEgJ-zhgV6NJd7FkjfCebbxQrXQT3njF076Z6xq5_0byscOA.jpg",
-      "https://cdn4.telesco.pe/file/H4RD1ZE5aQu8s3JwSe4pIo056DS5GLKv6Jz8TMsAGzcjmtSiTf1W_VbQnCmCbU8dj0FNxziF9RoZk7tc_TWvsh1vaGKtqSgYYSmxv-jI7j_HyFKmrheJ4ghz0LGbHjYaQfuRr-uJwXst737WnA_1Osy0t2DfHNeDvnc9mLq2aFnTY2-W6TVulFh3BS2a91Bb21iG47iEkCH_V4Gi9tEOBd7tcnCDUlXX5k1u25RcPYcFPNVJ5UK_BF6zPMpRJsqX8w3lXRop75aCrSJinHbHZceX1jp9IX_dISVqYZP7WaNpqFOfxK_7Z31Ww0VQR1L4enKeyTRUVDOK1QXY56OS0w.jpg",
-      "https://cdn4.telesco.pe/file/G-F-k_8swlqKU3kqFJg64qijXYDKgqxLQ4z1AvSbYEiyOOZeoLqUH9_L-idh7IEQHCtg2yBNUSrr0TU6XCRoH_8b5qUOAOS0od7sjRiS45cibrI4AgDAJIMnRDoCiNgSeRzdDvKSevXlx9sqlcEij7gwMe6QqVsewKWd3P0FwYoc1DtfuUiva1gnNN0By-kCZCjPVuxobUN5mSCXInffBDvHb5zXBGExoWa0OdZ6bbcG3N1yK7-mFxyiaTMqP8Rbqb1txBLN7fEhdk4K48cz3Si6QpSFyUDPpBVJ1mjIYoe5xZw6RzzTUzSwi8PEXyJHWVkcWUR6LHi8otrJur31LA.jpg"
+      "https://cdn4.telesco.pe/file/ZMqkxGZQqeZbaN6Ue3g6GNAtLCEJthvifZK5YVzJnneOVpMqEF3yyasq3qzriY-bzfciWl-3EELlQ7l9_HVBokMYWxlQ6TQKix51ltVrlLBJi9rImTiTf3Fsb4C7P_J2qMc4XUptB5PHR1bPHovRfRRjo3f0URZfKMvMyQB_lcj0_wr6rlTUJPMHt14CLbQshbDUHQGwO41wgF5aV-dSqiE0nSkF7lkQ_y2ygJXLx-KpSC8qnGfnHSSDoTgNQKm7_ms6wBZWT_lM41iJowomhmafqSx-gIEW7lC91O6Rrfvgp76ERDUs2fx3LTWIlnu11FizgGTlHrPgJpCCZn2nVA.jpg",
+      "https://cdn4.telesco.pe/file/OdmQkPZBNgrPheGxbZ56V9a4_h138uQF2KD5dJoAp86oGzX4AO5nk4EQ0kk5FA3ONh1nmXEPKK8ArFMqS7OxFby5N3BXVikCH6dFM4bfOSIa8Ow0eYF2oo6CZj2VQHh6m9owWPtdM9rj55tePNe2QvxNY53i1Y_FCsNf1V0QNvGCT_aKdXaYxXbSvPdWWx6cZmWOo7B_dKT-XgGpjjlkLRTNY7v-Dj_idnY7mEZEWfOwIchw3PCG2KzPW5-JidqCfFzGFK41Qm_WHT2BwI2FVYfnXHgEBVEMtyM46yeKBWDPxfH-k4DnIeVuYRWqDlq-4Js6WJuncZ2wlVAD1c36fQ.jpg",
+      "https://cdn4.telesco.pe/file/VqPNfHg9X1-dsOgiEkQ07Ip-txEJY8Z5VXgkE5NupfYJI05Xf7wsj0W37shHApTpyZxlAX8NJ-vGaOIh4CzeZZh1DOOO7DAnAYJvW14Goxo3HsembefrlOw7kyEtZMMClfuTLRQO9UWpO54Xlnf52IJmkAiEi7cfCUPBJAINHeeD0gdsT-QIP4B8gke5dIAiOKAEX-Cm-V5pr8SCsTgQ7OOtaF-TSrtYnZgD2_prC5FEio9cw_-cCjt7doj3ed5VWp-5M8vRaIC508ckCtzrpRRuDcjKRkmZDmnADWm4T0QpcgaF0X5DBJe5wOW-_t8J8Ed9Pe0lkMlGJ9RKv8bmkQ.jpg",
+      "https://cdn4.telesco.pe/file/uEEALEagCB_ujbKNy_u0F2rZ1naMi6e13OEJPZLyt1i-xc6rzIpLBRoSYt50UzcICzHf9jKCXWWMD7mpJSPbnFe_i0M7lU4NJPNsduzYQOFsmObP3FC504dlgbkFCbXlYL3Q7pVgv7Au0S-JgeJqjDFWpBi1SoekpyeRsTejDgCcYeGQxvyCZNIl4EfOtfiltbQTvgsfxPNxfRansCuth7lJlGvJodPPcX-MGw2zKl_hLr5edVti-FxaE3V6ooGYd9fsNhtZYqzea98T4BGz899T6_6fshO2QNIxVflLifow5OLNqFbXJHvdSdpK993Yg-gpzp_eWgaZ1kJQ15Czpg.jpg"
     ],
     "video_urls": [],
     "links": [
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:55.220835"
+    "parsed_at": "2026-07-30T11:08:05.735643"
+  },
+  {
+    "id": "abakan_mebel/7009",
+    "date": "2026-07-17T08:28:19+00:00",
+    "text": "Недавно прочитала обзор всех комнат 2026 г – и понял, как быстро меняется волна дизайна.\nВ кухнях переходит к\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
+    "photo_urls": [
+      "https://cdn4.telesco.pe/file/QcoZ9KHiJ5qFfMOQ-CHWqV3YWZj1QzXTSfxPib0GBdgmaOz3i0WyoMWUOufO6I_Y8KV-ZNjPaoGVvtlmwpFf3O8QxLhAY7-zGfCQgabmiDyGWs1eSqQP_lP26Vq6eH2_1Xmq9kH3ZJk4HguyY4m4FJmZj8nbwkTGMwQToA911Lwq36CugIoPrMzbIByRCRQmqnH9XJIJmaWNXbk5EVFNr5vJ6k80cE4IZ4JxBmLs5QLE4Hs7msXEPogWYPqyeY1yNlhtR_u7m3iaXq3V20NcltP0DmO35hc_hsGuS8PqoOb9nmQt6b0n_L4zKZV96iXeQLMDBg8BUnXzt4jW6vTZXA.jpg",
+      "https://cdn4.telesco.pe/file/KYiVlS_V-n2zD3o4y7AFnKipmI69Ux4OlMBM266kOqQK1xzbPK3N5O0C1Yj4xvfD0-vQ5shOx2m0Xjj_TImxKl1jCBiN16B2s276yGe6E-k1fFf7wbM4QwbJLpUST4-A4Wriq4fi7WHB7rAhSMov6nmc2U041_pTRr_uVoz8272x1zR6KDxUdcTHXQ54hOicZxLHk4Z6hWSIdOyp1aPQE8CGA4wXBf0Eqz1OOwOBVbBBQ7IRGoghk9bh9nFAPdMeKVBqbzInw4tE5BKFSQT3y1PEAWjZOh12C1M6l1ApyF9GSykXkw90ahZcCUMEPR0ghqR8P0TGygdFlphFmBxiIQ.jpg",
+      "https://cdn4.telesco.pe/file/AOHlUPueUt_7ztYJds_Q_L-j2_-YlAQ5stUAvxYDQsNw1uWS7yTRsw2IyrM8uIlyRI4pJiZN-baxDq7NHXDMVJByffxQcuhL_rHs6l8fUkcfMkrjr21Ksbz7Y_eYPl0nqKLkp-elUAw9XMC3j3qY7yHUOOc-XITuOFqqiE1BCEyxsLHwFiXCepQ5rRvusdU1-zBoi_eFrfHsZPXcVw7bmlcBDA_Tzn-LAvKusdRBpQkEOY3ppTW0dq50fXzen2PDUhPK-BzvW4ldj1jYTSFytqqrZprQlD3ccP6K8Aq-UYfvjEHFitCuYEyIbgjuwfpwj-ES7Cir1jYtkl92A0FD-Q.jpg",
+      "https://cdn4.telesco.pe/file/lbRPLoor9oTd8w8q9mIHPmgxVax_zPB8KlHn7Hut0MSupofnwlfLOUcF8EBCnjkt8siBLVFIRA6xQju2CoigcNY7DCjXH9SYaDolPQS136RxcLyDor9INrHgO7Yh_sZ0pavBxpLj2XViNLVeqZmnO4QwZGxVgEOrY_QCrH0zWUxQ0Jkl2WMRQwmLttTg-cgRWeIYBWM4GSVfBq9a1ZLuUQWNjih6_Gt6RF4P8S6UGvD5fsBycTpC2YGeAJfmF3U4VNv_5SwnslyaKKo9-C8xzDnMOP6XGSTslCIltxPbbqh7BNleW9kDi6hjOvEFeBuXtOAORkJoVMbhjCDdL9Mg7Q.jpg",
+      "https://cdn4.telesco.pe/file/flo49LJDlru-bRQ9XAcCOM6FHDiiu_cTh1PdqetECDEmiL7U0Nar4w6nOmWUEHFVpRkV_Dusg-ad77g8Je53sVnAYkO_wzGCXx3uWrA-7VJRKmRwWxopWawFqlL-XPNsWrxBHiLASD4EPtYVyQ59jY-SDF3Gk1c4z5nMNRtz8q6wxYCLru1kFCRR-PWIVrnbz_JJpTwjEDWDEtJZdiiMvyzaWgpB85xHpQoZp5CivihnsisarfcbW01xxTEltB_9jhr3Jy2ZPzaROdYAF5YQLmXMFXSeqTWrpRKN4bMynJA-F6TPW15-AXTnsLsb-fyosUwUkz9v3xgdSo0qwzMXAQ.jpg",
+      "https://cdn4.telesco.pe/file/G7GY_VD2HAkowNQrUlQoPQQp_bUtt53mVoJSnlMEtPwkhXsvuuUpXzelbAztsxeHyq5ATa4eYE_x5SxdxlwgHqwdDrsoQ61WXzM_d5gg6KfhWnUZwe9mHBv06yjNTVkRyq-6K4bBXPhk0hrES8EqLAuGGCNomEq331ZtI13Bgv8NX8W_28d51inCD7_TQend5roEdWxXuhUVvAv66PcJomUBgU5tFwcc-qB3wLzEFF3pjxG-PJXo5-QYaa1VlQ8bi2uWYbcpeYRbbi7rpcdG7XKZmWsV5lUh4JTxaJjeIGpG7OxdcEmlqmkBVYdGPB2t5xiFEOd4KOfrPrAQftKbWg.jpg"
+    ],
+    "video_urls": [],
+    "links": [
+      "https://abakanmebel.online/"
+    ],
+    "parsed_at": "2026-07-30T11:07:59.717356"
   },
   {
     "id": "abakan_mebel/7015",
     "date": "2026-07-17T08:58:32+00:00",
     "text": "Сегодня в Instagram показали, как простое изменение цвета обрушило на кухню свежий характер. Автор поста удержала прежние шкафы, но превратила их из классического белого в «Olive Green» от Behr Garnish, и сразу же вышла из моих привычных схем: вместо «белого бездушного» переход к живому, винтажному оттенку.\n\nКак дизайнер, я всегда ищу баланс между практичностью и эстетикой. В моих проектах часто приходилось решать, заменить ли шкафы целиком или изменить их облик. В этом случае – «распуталить» – именно правильный ход. Оливковый тон прекрасно сочетается с натуральным массивом стёкол и керамогранитом, создавая атмосферу уюта и стиля.\n\nЕсли вы задумались о обновлении кухни без капитального ремонта, попробуйте такой подход. ЛДСП и МДФ можно покрыть лаком ярко-зелёного оттенка, а наоборот – добавить акценты из стекла и металла в стиле лофт.…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
     "photo_urls": [
-      "https://cdn4.telesco.pe/file/FFLICz2xoeTiKdeDBDKdrAkmhclyL8iSTs6EA8pJkOLodGDVn878yiZP4crWSAkrG4kOI8MdGzbVpy4eyo-C_-EU56TDYtM9nMxVY4Po46V2R8cCeslbBOA0moFsAWHa8kowA7IY03MYJS2RfAG0rCe8xuR7G9n-C047OQswy51vlmi5QNur6s6XzSlzN3vgGTmK5C5ANFVCmQ4tL-YZdLj--IFikPAtZmr1aH-7uP-4ys8Ai1JWvQCp2Yw_5Axzo7eTBD3USH086jTHdTAQhurYt9HZG5OmNVyFPogZxWs-BWnoiHvhahBuwiCrfTF4DrAYc9hODCRb5h0pPqZIUA.jpg",
-      "https://cdn4.telesco.pe/file/d3_banowejpXduEx1eggg8o3C5XOqxi76hHByEHIUF8tfN6NPnUPor0K4_LAAZZ9lpMcHz4CVt97PXd2j7UdC2F47Iy4YduF16KsNA4IJeTV2G_gBeRO6OuYV88gq5EcLiYOPReQJ-wSQdW98VixXaxcfF115MWdfqfjiAI6Qnn2VPylTCGD71VH_4tT1fCA8S11Ly53sflVExtRf8M2BRTv9JaxBCWGQFP1Z8midDmTfLy-g8BU93K6zcfSn6q05P_Q9gmQV9tilpAQMxLj9UchqO4OkdmWpIhBe3r6CzkYwSF2aPjZI_HK-sdqdSXHaw6Fa7FlVPXbvbnZ9i0vqw.jpg",
-      "https://cdn4.telesco.pe/file/N4mqvgYIgz6zCEfgNgvCjMTu92Re97Lnc3JeHjCeqTaP3Nkk9dwK7Tqjc7VqQwo_ZAo4Jtf3LNND2fY7uchJpVD2DMVMiWBpfSOO7q9YAQE7qHiczjJ8ESfdkLbCBMb-Qkz7lgXy0ObzbiXh-eoeBrL0OLOrYsJzWogcJMoqqnSmcZAUnxKMZ8k8PdFWAaC8VittxqvqB81FJ6VUs-PBYinjmuvlR_tfdrzk1GvucXZSpg91-anvuk4aD6jaxkkPxvfj7E803O-ZphznCue5O7quGzsuAuoZpj-iccGs7SioCYN6xmBaKu_t3jef-yxlpVpLKM-sicKtXW6gfusSuA.jpg",
-      "https://cdn4.telesco.pe/file/p0CfJc0-Oy0d9S8j_4pnOaSzUiPCzYgjjEuPXVqSBpBiTSd64C3lLe72S4yLeR3ly4LJxIBvmOr4mrNj116hp0It3WukEwYd6KCnLvZaK5p6CMzOfcr7AaZrERFRqYXNp0lTTepKQMc2FJb1QISt_irAIe5mj-r8FCzGyVb4Ip7MfVeN_DdRCPjVNXnetfaV6YCiDgz2F9rBSceTNCyO86S547hm3jRrGUqqCWqCg44tdDD3BWU8cJiAG576RViRA5LmygG6LlVN82dXVsVCcU8A5Yt-mWYdn5bFdk1EW-_KRBM3RojRxkc6GznyamjdDmIvWNS9nAPTl2kQp3pFLQ.jpg",
-      "https://cdn4.telesco.pe/file/Re7HNwLjuPeFJcNxLqwk54BExWvccfNYH29OffCY2u4msb7XFbgdKQwx6x4DRNmmT6ozvdwS24kAvTWmrd0czRKB9VUeJL_mLqs2FuRRxMlR-0rhJlZJ1I5mjnOdX6f8MqLHCuydZh3EqiW_kbwjBYlNLPq1Oq_F4mYo99aZDb1lq-zL98tkZojQwOYectNTWdicNgLNcabX73HPN1Q5Xmioq22ZgYc5e39V1bD_kQAycm8I4g2AnTBuYVTaaW2QodwCI2igrZX8d4oZaLpepImOYndsVPyOggLrPQC9gfec2gQJRMA2muGAKoYi7L-4qQ9-c8SghaDLqODtZQpbWg.jpg",
-      "https://cdn4.telesco.pe/file/bJqvv60gdEbcf2TALkPPETbO1qrx1uScU1Xdd5hiV95EGCMRdYEEUop7QtIn4bHzjEpGTpIWaHj72lGLqfCZ1OXilghcJDz-JA-OE6l9isA74Kmh0NUxkPpAYPOlEd-HujCE9M7-_uPTqa08X0GdhcqrWhZYiyzZeqFt0f65n3BSimDuv3vQwIkldFhm0JoM6Dvd3TJYZpGtG-Y4JJ3BuWWluHftNnHVIJYd15QhBPtYzrXHGrJmqTvqaoMsoT1sRzebTK7ozP4OzhKXKwLQUwpPpJDpYVvg91p0KJZGBX6jXY2h5Fh11FyQ5qPUewV4Ay9mUnCXRh5xvNen_HJrCw.jpg"
+      "https://cdn4.telesco.pe/file/C6YEBsb1G473lx7eIJetZCJSgMxD6FXE8hO4yZMTTZn32dHQB6DV3JegAhVKQZniLwY2r2M9aJ8cKrkkQ36WbYNa3FnBNTlYi-p4VTvj4Ut_kiWF6MVaxw9oSX_WnfSBqqacGw8oWI_J3hl_w1BDv2Shc099HPC4JjOT4PcDhX7F8oDG8gW19A5Cv50-cwD5CIfIxjCL0cYERvcxfAf_bi7epkhkAXIudFVKfYRRaUDBNYs1G416IRN3rcD5edCwSy28T-MFEUDBUd-jpx3Ei0wXovFFYMqWtIjhWi3THhyPL-tn4Ms497c2vWWqb2Jps6xtk_A3cN5OiI3tvWnAww.jpg",
+      "https://cdn4.telesco.pe/file/W55N1pTdWk3Cn7KVO7f3HgGzVcWXDwVD7RoM22n0vTX6K4DCpIBfnJNtzzBaAobDO2JqZt4Rt_0Fji21pu3lxwhRB_VrCf29n4W1kBRtpUB1ipG7B38oSbsf5NTWVwDMpLr3JWle-snxaFnbgCKo-EIjtjOqYokOag4_42no-ZmcUGaSH_KT5tinAwkE_bYTFOOg-UjArvPulRHqxu-uFAPUiWR9sQlv23jFzpLul5G0oIraUWUHGsK_NjjsYhY9D9T8P1ix9A1yz9UDNDtPgCDus_VA1RFIkeaW1s5mkIHUEBCksbjaSPTPWx5Xg-LjUV_CXfprf9pka_xeQb3DpQ.jpg",
+      "https://cdn4.telesco.pe/file/exSvZSBeT029j23bOl0lrw2492cmO_aTdW2rBfylA7rCnISysRXWAiTSQC_l48yrrE8nxwLsEDQfAyw1bpRb8FWl5PaZU1Gw0BnImd2ddD8enpQxDccBjyVixrUL54gVPZpGLO9k-ojnjyYxqTAD-ZKr9NMz7cHn19IuMqQQShsqM2lCTAtB_XgN4diEFQR2FXygVfFzLFiaI8RTeX6LWczuEGe_DcDSefy1G4hk5E8Mrw7D57t6VEGZ2RrNGHeuHkoxNgePq6ilqkTqExAeISLrc-s-AZbSBcwJqr4qA8yO1Okz_uhBLHmVPPigPAE3Lvofnyl8dS57RUbQBxPWKw.jpg",
+      "https://cdn4.telesco.pe/file/pYOHWOXakGg4QHm8CRpgT6Pt2xaMzJiTi6HI16b83BFVOnm_t9zpZFX9KM3RUH5AixyF3Tj-WoWZ5OlyDoSaKH_Aay3Gh3UfINuj8TUvP302hrSASlK-3AkiI9CWNqTGRCt6EXJkl6lG8UMCXx1nZ7bpqz7_bmz7IcNjTjMO9CRvubMyvMHvmdb_MFtqVSEy2Qk9aJiw7d6asAovq_9A7-RzaIJBfD_yZW3UJjnr8b2bXJ4T_61P8yTvOOXiLaZkUg8zMYs7tWhcJwJEGbOtdUV7snB2Lf3xom7k52fymDyEljYD1fuYBT6jjbvM53lQlPv680lkSPkjkq503gwIsQ.jpg",
+      "https://cdn4.telesco.pe/file/WaKJ2_xfks11r3jyyGGJCleXYyzua4Q8HVUVE0HJ_0pBSKbbhu_BL8IrpOIK__Je45h8Nge-ljduOtoXGfTmgYJ1_HhcpubkahUxEejQAXZMAyTThkBnvgDBBQT6jJuKGylHWxHWVWviSOESZlncBu5mKE5b9vmtHitKfBDKBZjsNSp4RrAUY5mOVwTk1gYpA_-6H5c1LZuodL40N_UV6ZkLtb_lG00yhPLVScuDdT3L38rTA98oZMxEBi3NRy-JG1wZcwE6gZvrMU4fm3xFBRBsfdFSC_DM31cO9oRMhYHAAPpEBMUWKYepAVwxeBd7GZfQ_wjQ0KVx2WezUzuoWA.jpg",
+      "https://cdn4.telesco.pe/file/jPXPU5ySGu917w4XhKiHvzWFC7REDgBpDUj5t4Cndj-0cLnXSz8OaV3WcA-ud9zSoxQ6-f8u3kC71riDFn7tjwCrC9mIQdUaycaNKXeHLjmDK_WfozmkwKkJ1Xbhyu2b3p_f_uaWvFwunL30QpUJov22UFuU3faIm2eUdeZDHh5D_3eY4vTGD7bXHmMjGm37PWn7RS-kiJ8mLrNVKfhTLuGpcFpRcYkU5nv2c_0cU6lAE1ce1xM_xfsSzvJlORenl8m4Nl7X6qY1xrxrVhcxgO50HvMxzBcR05VN3PddKeB5arhzf-vwT2w4jBooQavMj5AVLnkd8CMTeaKVexGAYA.jpg"
     ],
     "video_urls": [],
     "links": [
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:47.988428"
+    "parsed_at": "2026-07-30T11:07:59.718020"
   },
   {
     "id": "abakan_mebel/7021",
@@ -44,35 +62,35 @@
       "?q=%23%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0%D0%B2%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B5",
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:47.989247"
+    "parsed_at": "2026-07-30T11:07:59.718709"
   },
   {
     "id": "abakan_mebel/7023",
     "date": "2026-07-17T10:09:28+00:00",
     "text": "Сегодня в мире мебели появился новый тренд, который я сразу назвала «смягчённая граница». Fold Studio из Австралии представил набор стоячих раздвижных экранов с каркасом из массива (American White Oak, Black Walnut, Ash) и обивкой из ткани или плетеной лентой. Это не просто разделители – они превращают комнату в модульный пространство, где можно легко менять конфигурацию.\n\nКак дизайнер, я всегда ищу решения, объединяющие практичность и эстетику. Эти экраны выглядят как изысканный скандинавский лоскут, но при этом легко складываются, словно портативный шторосрез. Массивные деревянные рамы привносят тепло, а плавающие текстильные обивки добавляют воздушности. Маленькие детали, например, винтажные латунные петли, дают ощущение ручной работы.…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
     "photo_urls": [
-      "https://cdn4.telesco.pe/file/DyP4rN41eVRgQO9DswUppTOm5ZhhwqTRP_CF0YDa9-Bhn-QuHftof9lnuZLrT1fGmxhzRlJkW9Xt2jHWCbYb7VeKHd5rcL3MWGV4GuqAO0hObEvMn0yVD6j2OV6OdUJI7lQz540A3viioHIAZFCuVXoulASMnTC_whPv-3QRfjhq-qaxQhxWOntwWkiGKvbSmFMM2loEWCTMXaoZmAiKh2VLWdGo35Ryd1elQqMURFN0F81TL3p-kLx3bvANJumYJYGNPfCUhSvQ14bmjM3Eai_cyRti6GfKMZTtRfnDf9R_o9z_JCudgRAup9WWx0QzKHsf29dksz4_4bU0T6cqIA.jpg"
+      "https://cdn4.telesco.pe/file/R4LKoaTYtUbhHN2U-b1OuHhOm4KTt5pc1pW8ucEU3GOUHzCuNubxZjX68Hlaxj-CbX2_JVghjcXJWZJ_knltw0hplRw9MYcN0ZoFPJNnaU_irf6VzVIvZNro-mD4b1ZZT_NZhlornHzQPlNgkWZjKzSlzNcx4bwC551u2grke7HqNMBY1du772MvVc-rq_pu8Me2MsQwKASx3f3fbEmriPbiSOjoZvz1A9Q6StnR5rjZyTjqfUN6oTemwgXo0hHOpiPSBwoqJ4XyT7WiYMPxymmk7B3qO2BAWxmqHiqKP9avyyYUNdGoQi0ypSgIBHi0dSdaL70B_7E1ybMNKIe_9g.jpg"
     ],
     "video_urls": [],
     "links": [
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:47.990551"
+    "parsed_at": "2026-07-30T11:07:59.719813"
   },
   {
     "id": "abakan_mebel/6984",
     "date": "2026-07-17T00:46:02+00:00",
     "text": "✨ Пятница, и я в ярком настроении, потому что нашёл идеальное решение для тех, кто заполняет кухонные прилавки миниатюрами и посудой. Берём обычные корзины и держатели кастрюль – да, я говорю о них именно – и превращаем в стильные вертикальные «прямые» отливки.\n\nКак дизайнер, я всегда задумываюсь о практичности, но не забываю и о стиле. Ведь хранение, если его оформить правильно, может стать акцентом не хуже полок из массива. В моих проектах я часто использую ЛДСП с декоративной отделкой из клееной древесины, а иногда – МДФ для ровных поверхностей, на которые легко наклеить керамический или стеклянный backsplash в скандинавском стиле.\n\nДелай из корзин и держателей кастрюль «прямые» отливки: крепи их к стене, добавь небольшую стальная решётку сверху, и получишь мощный вертикальный бар.…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
     "photo_urls": [
-      "https://cdn4.telesco.pe/file/v5YIuYvHvHN5mM2ZnQDgF7vBJnNSoPmNQCcEEt9k9FWMUd39Bq8EfwN4OumB4WnrmvjyUi2b9wwbCLXbbugm5N584S_R5gQIYuUd-pZmrFtuVe5DlOaOWoZMOOlEH02XkkfiRHEqH14YjGWk6HuHDtM0HXVYF4RKSM4V6wQ0QzJesKkW8D5VEe9CmFOc5vbxl34MboRqrh2Uu-rl_gzTaMrbhIGN6_TtpuSnCtrvxNGsbRTekatieEI-E4naheEPwVZZxdO81qvwk_tz9FTQsxoj3Q_zuopgwdp-RXY1dXE5LgHc15K6IowzP62eGIVp95AyajfDaSEuJAO4iPR8yQ.jpg",
-      "https://cdn4.telesco.pe/file/q2e-qwhdqJjOe_zo5wWWuZoRN-xg2JHuFGt7Y41EMOh0q-TIYfO31cyb94OR3hv1k3Ghvg6o434ouCtiS2EUW0DaquJskKbCvPI45ew_LLEh8sTuoBAUJ4xtMlysaIy4uYq5xhxinO88YvlAxN7cw6Xts1PhUgmOquBBscxShqHkyiPM8lFZe62T-O4-WJN1c4LfVWRfvK4Pt12iQXSM9w3XM0n77UyBfSOBQM7PTMr3AjTohn1ruyFh4kZdVe7YP54rNIRerjMtW1Ee1z97mCprnpDestjs4xBRNeAE4HbI_RTTSA0OaTQEod1ucxbK6zNlAQsgUWqgFFFov0BX7Q.jpg",
-      "https://cdn4.telesco.pe/file/Oi3mX5p6iWTc5bFhKs_a9_P7RMBmCl-iHoFDtjPxkzTNT2YNZ-NIbi_-kkcts5qBYyPyjQra7CxEyBtfdf0I0WPtUlOkuDKXNT0A-CtsQyzw_vBdd8l3UK0h1Yp8eJkEx5KRz-gWb7bz4ln5dzb0h3VO7LfGInLi3fjOUdqSL1RcWN5K9Wk8H7rqblKoka7565pFnyjqnm_AhERbLLNlE4SEWwwaxjnfvMISmwSv4UUNbtu8YxTK13I80B6PJ7usXVrTSVlpvAOmnpubcJbPVtBmkQVRXWSAS2uxwl4TTnKFU3ZJ-5uSwvLy4my6hkx8T8AtAPgAu2e6Po1Xmj8E2g.jpg"
+      "https://cdn4.telesco.pe/file/iuq8BbpmCDmM2qlRcpFnaMhnwORKo4c1TMYWrg8oRbf04BJ8vucZ9G-aXqIYPntLvUrQLCUeMs3-tduZVd9OrtiaNnaVnn4mXa9UiiUvg7LO9rEl8Mn3m6jFY4HKcT9A9jagjAAykz8zj95GX5aSs14sIqgegGA6L3kVoL2Ufs3gYGvu_vMGqgpYPcwiyPmbosLwR-62VLijKOnhINs13B92mgAuY4fDvHNInsEolB5Pcw16ogOnTb0TIdOpA_8nWMSsCT-VDn1vAm6h3Kkrz8PiaPgr3VoV8JKESJ1nKwke6Bu2gdVjmoSoIfMg1GfXFZMPTllg0Ny5nmGgWZWAGw.jpg",
+      "https://cdn4.telesco.pe/file/FgPHz2QBrqg-NNOP0skFOW7SVbPl3f7qkVqseqp3uaZN5fgb3Nb5SKIT8ErCQ2zHlX6XF4_gYTgRI3DyRx6zf3GRKFtm3eBD0__AFhhyx2m6r4y17Oj48R1FJmNkdMGTW8XIiBIWsyk0iFK76hUNuqACX43SZEvTSi8FXS7KPbrMn4mGuPX_eqXiV2bQ0pVki7kDZOpYFuCEyZLIrRCxZoph2zPhj-5gnU2UnCjXTDJ7ihN4pVyWz1pTVvkSWBS0SgvUZJP23FqP0Q7GYVn6XnheeyzHDC9PGrht5-g1y21m0vTnhFi9J6b5jNUcpPsAPN0ofcDUOju2PMRuUiKEkQ.jpg",
+      "https://cdn4.telesco.pe/file/uVDDBAmL2DHhdwOCRmkCr0KARC8t5qvzqqzJ50yWDKrwOdDWRoHckpJ2hpJ6gfbbUBTa1oIDYWHLx13oQYL2ZoCnp6nHEwV3iHYh0wD6BpuCW0633Rb4WysDQXNKjFejaytcYwCruNHURho4sAxlqgANUrvHew1nSHwxO4wfmTJh9DhsC-9FFME5QBHVbPz5D-GnPTILaNIGUIbudWh7EKE6wFb_gvmgW3bUAG-1ycsiqBR-VZm6YeIA05w4c8q4ZQnP4AJZFEFtHvVHpAFrIwHN_FccenGAOBoUtI5NOJSLF6W3SKYfUSQ1E68IX3QodTIsB-AGrlVO6JvM53OMzQ.jpg"
     ],
     "video_urls": [],
     "links": [
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:49.666748"
+    "parsed_at": "2026-07-30T11:08:00.930022"
   },
   {
     "id": "abakan_mebel/6990",
@@ -85,73 +103,55 @@
       "?q=%23%D0%9A%D1%83%D1%85%D0%BD%D1%8F2026",
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:49.669185"
+    "parsed_at": "2026-07-30T11:08:00.932116"
   },
   {
     "id": "abakan_mebel/6998",
     "date": "2026-07-17T05:30:38+00:00",
     "text": "🌟 Вдохновлялась свежим обзорами смартфонов, но сегодня хочется обсудить “привлекательный дизайн без пропорций” в мебели. Как дизайнер, я всегда считаю, что стиль начинается с качества материалов. В сравнение с Infinix HOT 70, где заявляют о «флагманской» эстетике по доступной цене, я вижу аналогию в современных камере‑мебельных решениях: хочется лавировать между массивом и ЛДСП, не теряя при этом изюминки.\n\n📐 В моих проектах я задумываюсь о том, как объёмный массив‑обеденный стол в лофт‑стиле, обрамлённый стеклянной поверхностью, может стать «флагманом» любой кухни, но при этом оставаться доступным благодаря комбинированию MDF со сплавом металла. Такой подход экономит бюджет, но не портит эстетическое впечатление.…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
     "photo_urls": [
-      "https://cdn4.telesco.pe/file/hbKehVWhUrTZ_fmSP4ihPNhCQ26Mf9sRdqrX-Vj4WQbp7ft1GY1hvv-DT7IqtVq7_G4tHIiELRjodAMozH7meGaXSH661JcBZr56K2DoE4f8uGtLrGI-l93j5o_QUdfaAfxFVmdyKPzPHvqeXMGSA7EFjkp0cdAuj7395Qz0gZy5__ejmecRDYAPAEMozKCGTV9O8i8RHQIRYNXgB53OyQw_3Ir9uuj4G2Hdp0bP0PkvqYA6QHvz4ELXqaGqX_dUicHZsKqQ0UuCf1I9UFzxbH4wGEqjyZXJA35K7UiJHH1jdrupRZapGsLCAEF02G8ZnEDpxswsgKWz8IjM40JAWA.jpg"
+      "https://cdn4.telesco.pe/file/NmT0f4o1i3BuXJt0JEbF8qTg5T4uRcUt8TjCIuaQblO6R38w4l977cQMIL2jPchCL9Q8XpkrNPrOPi_IrCyT5C-mFUg2Rgxsr3Lcq1GrFgJjf4708_a7P6J0I7NZZuA600l2_u5Nq-LsM2B__IdbvqBxAsov_AH-u6l0toB9TVztbdfwwwfXPuBH-zIepF7IwD7XM5XoHqE5bIIHWo-dg_ZMkHaetDU8SHt0joT6z5nAaov01h5fAkJX3koAwWmcCwFPEqs7eFMyDold1sCtHXFbxe9os0ygRnHMND-1Tu2GLYi0lkUz0PJ_qJEYIW6BmPL0OPQfQ5PJzNoM3_HnSw.jpg"
     ],
     "video_urls": [],
     "links": [
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:49.671529"
+    "parsed_at": "2026-07-30T11:08:00.934095"
   },
   {
     "id": "abakan_mebel/6992",
     "date": "2026-07-17T04:30:03+00:00",
     "text": "Сегодня пятница, а я в хорошем настроении, потому что нашла свежую идею, которая спасёт ваш кухонный угол: как превратить кладовую в безупречно организованное пространство 🛋️✨. В качестве дизайнерки мебели из Абакана я всегда задаюсь вопросом: «Как сделать, чтобы вещи не только хранились, но и становились частью стиля? »\n\nПервая мысль – использовать модульные системы из массива и ЛДСП. Массив добавляет тепла и изящества, а ЛДСП удобен в обработке. Для отдельного отделения под крупные продукты лучше выбрать ящики с фиксатором – так ничего не упадёт, и вы быстро найдёте нужный товар.\n\nВторая идея – отделить напитки от пищевых продуктов с помощью съемных полок из керамогранита. Керамогранит не только придаёт современный вид (лофт/скандинавский стиль), но и устойчив к влаге и пятнам.…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
     "photo_urls": [
-      "https://cdn4.telesco.pe/file/mVVTx9ssDmlH7vJQnHrPIw5HsETYe2tmymzTyQ-TzZyqeeFXA6YE_mfL5DoiZcVP6tk7-Qg8SFG8ZEgSiv2QBhwtjx3vLuPVQIBYw4HXuAzJ7XFzBhiPOzJ4ZHwNChnqCBZXcGdzLOk7LkgkAcuATQ7-JwW6phXZvPpGVXdngz8eFYJcZTTB-hit6VAsLIKTiSsBQsaXoyLxiWutbwPpLSrHciSWOGkcQ4s0yckzBtF5aCk6gPTNln8ur_QSf0p3ws2BcBKy4BCRWURKLzvFqSkBmf2c15cXHbTIP9sszwftvAA_Uc3OWLkiTtixEWDawYcRiB0ud1pmqlwT1aT4Vw.jpg",
-      "https://cdn4.telesco.pe/file/v4hnJh37y88lRrCdZorlpvySwI63Y1O-jCaapxRd1_SH6Czd4nUDdOytq7fDpNQk6sTvzqtvecDI-_tRjFzNvgI3YeieJVTrLa8cLQ6qpR4lvQnpH3_doAgR16VpW3NhkwJJNci5AEIg3Z-P_NuqQuQuRaRIuwm_utc6IqEPAsvJvd4qvB3a_z7atAudYrVdXP1ItgOtiR2uPCkEOxKdfCLkObz1frB1Xz4jEVwBGRps2DLxa-ZjrYtKNwipSYagnEA2ybCH8eugqo3w-og24Y6kQuNSbn_zqr9gAvulNIfqWmTHz32DSCH1yyVPmWOfwTWvOG03n6W3_MKf6yFlFw.jpg",
-      "https://cdn4.telesco.pe/file/c6XqfPYmabLDS5e27eLBpvaFGEe5eYsuXiqO8tABgvrIE8kT8wOe7qFye5Br2hPyQ6sXlp4KvOhjY2IpChV9_vKvSMj-1NQNR4ndKdTAGtO4UQnUWT8zyFV7yks7NbmM4R1LA6Qm_78QeUp2P-PCAcX2IsqkelWdUNuzuZyPP7VJuIYoj0MZkT8WkHjEGoRDNMvEHFpi2Xo3Cf1wslr3WqtRcZk-y_iesrWfJjXlFMCGqK7TYR67KGv1EEacQIVldJGlCxOO2MTMoM1zrlivhG9ix20epqF6aZjxQghq3w5nbaybJvXQW8pP35uUVCz96Urp5i4utOnZjSPzBa4s9w.jpg",
-      "https://cdn4.telesco.pe/file/RkOSmU8iZ6y9kaiOUvNlFCg1mWKf8moOwU4iSdYLieoyLNiHYfJJYoUM9X-u0JXMpHCb6ORPb3Znm9HEmuK63cmjaGPlPkK4mGjfBum4SOkP_-oEdo8HmPm6O0z0reeXs-4eDmWsLpCbFfBoEELslScS_ShEyPbKYPkgWohkvhlIhg2GCZ-35bu2LGDP2yjtGN5LdjqjQqOFj76CCkfaNcttwgKxDYQwiVHlgK3YMTZqz3Gbii3AfgiYJvEVrVm65A3RhpxWT5xSCm3x7hrJ9-pdDz2Fw2jbJ08n08bqpCPCjrjcBU387eSC803SU2u1yIhCJaxU2bpwjadAHdU3Hw.jpg",
-      "https://cdn4.telesco.pe/file/gBf3UVK1ueCNgOgDUTbtniwGy2eXQuQn0tsg77_3R_ruGP5uerZXbKvs5Ouy9ZU4ostTPv7ieD4knOAYUZSY-talhOU-kMZvvTKLhVOHlWYlvF54HINPuVnyOrzrLfTgMjA3Xu_BYe38bWjaLdQlu0gVQspltAdclX_Oy43f4nLq702pkG0NzNtR4KuTreMF1y-aXRmxXZByW20CrlEvEkH0HX7vH-Gcxj6g7vRK42ZjokHWgk6UT1AI3Uau7yefVE0c0--MGQT44TnKzaia9mPVqjn8zuwf0q46667xT8RNTloA6sPTCpyqg1cjcUifxfqQ4JGjFBUWSqc1JblFMg.jpg",
-      "https://cdn4.telesco.pe/file/JjNuIQ9KdNR2JOrO9Zn43qPpFuBpLkj-YyrZslT1DujE_jFx7ZRr7fybX2Sn6PMq6dznLSmGUAVH0aO0h3rpzLWZB082bsX68fPvA5TYTJdOUmYQLUFQrOj3ZLb2l5I-t9QiclBEbiXQ60kPTfiQArE6sNkROzPUmIEyUY4BCe8mbLsGEPwn9P1zCudaeVONDr6eqYDmDlJ6K2IQkoDmVungpiQMbekOy29fmccqT3_NczjFby0b02Ok2kBgpn0XCxf8GszK_1E_M7wHb5kLTFkx8cecUaSfABDQDkFGt2MXLJGozTbbMieXo5M4jC49KqkY-i2xp2x6wL_jKGdT4Q.jpg"
+      "https://cdn4.telesco.pe/file/qHkliZUzRxvN0AM_2ksouW_RWtONOh_L31Cf4zUmSOVXZWE2GvZqtLSPcOKVA1PmspOp3XQ59Qm5IXW7aO64U5KpSLIkhTVVzM6RhRvEGzh5jauC7GZWo1vaDQZWXIZHOOx7kwNhghFlITI8bMREiV6Maevrucibc6GEM0U8T_on3e-PNzpEtLqmktpm6G8u6mayrKrdbEGd9epWp19pHuFQwdrRy9FRwADeHr-Gs-iuJh9y_h-yMy7_JRs6mrhMCpQt8eEqpY8F4SqliHsyLOjSGC6kiE6FNSfmzehbEhAGkTu2Dsmh0mwRtdWXZzaCIDBWugdxWrrwss-Btvjl1Q.jpg",
+      "https://cdn4.telesco.pe/file/dW8NRasbGQoPOKoYAOFUgGSwL5DHSv4d_JLbGprGFVv-bCI_UueZeq_pDULwdkz1C5N42cpH6ToseZTJlsvzmUqrTTBjdzQVGn5VZp1BtcVN6Qd0cObdk8b546UcoGMEekmle6UFaUkFjoSu_gfXrxCgtfq66dpPzmvJaBOt5WpKUHMPOE1KcJfQhIotlV7WAhZ6fP__Z44vMAfceMqI2n0sG0BZLIMNUdq6raKuxJm5ZvKqm3N4vcBoVwH3oePKclLp9UVgA7Qv5kxsAms_QM0yXeTOc008oaYv3X-9Pc0WotZVV81ws_4PUj8FUsGyLqjh95s_m5A3yxqE3pcwaQ.jpg",
+      "https://cdn4.telesco.pe/file/fSQI3WB-vHP3pXOnEL7JBJt4M-S8SHNqXNSErH1npTwPyJvQ58F5xAriFtXVPcyu8qc5jlsz077HIXkJsh5fW_sjAvfc2W7epQIz4Lw0OywxE01bl5y9JSGc87u_t2h_jiw5RnpKOSfRk3VkTG4BJSlh1TaFgQxzIrjy91ejKwK0Sy7yc6g6oujPKzm5DXq-RBf_J_Jywsgr7IqIHJDNZ8IzxuMh9DzAHFNYZJ5lGFeDPC3T2yddxYXlSPfhNDJKw8LYRGcp8BPOjjzd_m5DkbOpIP3b75BCJ4_5ZweI55-UXW3VwcILpK5UpVhBzdLUE-CD5arIjDE--_yrFt2Vxg.jpg",
+      "https://cdn4.telesco.pe/file/NVe5_u8YjLLyxjH0fJJ24Xp6xG0DYUSPl2u9ljnF2945sbUKx0Yore7KK-ZVNjqTNlF5IX3nfRaEydIEO1Wp0LK6qeBs2Wc6TbniL8j2VcTV5dJssMhhBTdAAqYtT4r-WSDlS3myP5LgnDFqi1CVYHSqUBwHBrwZaRdsLZp7KEbWcrY150H8jMSkgAqwrAAHaaHu57iDqAima_KC-64-zdZzYnPPHjT6PT3AGIUTOHrLmjkhHY6RG32HYDBkJhHi0jxat9B7q5v_ntEOn2956r5IStigEYocnvz7R3dgLf3FYHbK3AgzK8uUTLhqiQfE533TH4h0x1BRKFxSMATqLA.jpg",
+      "https://cdn4.telesco.pe/file/jWSI5o5iC1CpmpJXgVVkFCdZfBqnGgIZyRnEtrVC5MZbHY6wHCJYQ-ZLvWlUOZu0CuxYFu6I2DaYqwMIhHv3c1jbKlLuIPwmW3mqKsFtH0miAvpBr1NfI3sBx26YEi3clPoTbbZgAc5W6t1lNPBUf-xdWctWoolcEmrLRBLtXaeFkjN7JmMxnskaLhcNpbKp7ird2Vdq8cc1gAkvIn7G6iMI5TJyN5BJdflv2vwaKK0k6BJvt1bmLR9FYfjhZjARL5yd9wAhFJdSc77KEwJ5HGNLBwbIPd5FKQ9XPJf2lFpmB0KyiGxnkMvZkf_a6qXhSuAijHGeVfn-0EKKFsk1Gw.jpg",
+      "https://cdn4.telesco.pe/file/L9e4OpBGDnnJurXtNvBARbtLLr3HQ-XxlPQJlPxWIL0AjF4ipuoFYCXtqpTgj1g5VVcVIEboivOUcNKposvPIMjxLWixNINzD95H7m8IdEeQI9TF9M312f7EloYWon4-NYYptpEN63kOZFbFkDh-eKCpiUxK3wWZklPH1Diy4IOOB7uuaC6FhB0jEPzLany9ZePh_gp6LEXIj9TQqA08I0JSkMrSbromaOqr5IjkNjagDiOzHWpB4rzqEIn3K6o7kFDK5kyPBMJad12XDFrd1-5rQUuruiOpohUKQDxlXIvAccT3Xxz-SECfrdAFrHiJ5Q-Mr24DMteYQl1Ohy4_XA.jpg"
     ],
     "video_urls": [],
     "links": [
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:49.670723"
+    "parsed_at": "2026-07-30T11:08:00.933407"
   },
   {
     "id": "abakan_mebel/6940",
     "date": "2026-07-16T16:48:54+00:00",
     "text": "8 июля 2026 года – сегодня я открыла упаковку и увидела, что даже простая складная скамейка может стать настоящим хитом дизайна. Похожий проект, разрабатываемый студентами, оказался не просто утомительным элементом для офиса, а функцией, усиливающейся при нагрузке. Как дизайнер мебели, я всегда ищу решения, где техника и эстетику сочетают идея и практичность – и этот стул полностью меня одобрил.\n\nВ отличие от стандартных LДСП‑структур с простыми соединениями, здесь применяется инновационный механизм, в котором направляющие из массива и профиля Самосшивки в виде армированного МДФ создают безрамочную конструкцию. При нагрузке материал распределяет вес, а не теряет прочность. Это как будто керамогранит, который становится более устойчивым под давлением.…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
     "photo_urls": [
-      "https://cdn4.telesco.pe/file/fQBlvzbrno2hqY9QSAjinVx5Wc2DzeP3umLllx828XHjItdaddxIBp3DB_Ogb_q6B43ICqjHtyVJa44O4xDZ2o1qbtoBI4CbgpBI7CVCq62UHAna5DBlICpGyGhKIPt5Tdr-652lOaa59YaoyrvnAenRZnczmhX6c89rA_3xI4jJR5-6smLF6UWQbqAHRez6NrcvG_pJ2Z4naiiunzLYafpqtHABSXIOeP-49-zi-3Ueloz0412B7D9BihGkzuPvAdZ_lp2llo4a-egnFxGL9SJZi8ZHHPxyHGlSEC3rk9LLGHjwmUCqB4fy792LY7fTZypvk37bxRbKu4PctSmDTQ.jpg",
-      "https://cdn4.telesco.pe/file/Gt2A6x2Nhqc6_YkdkuGcEHAQcWFkDg8--DT00eLq8ss25fQzZH_Z2vPvJnneJdIF2tKdCP7qggSjQmnXHRT9sxJCWOj3JmEaEnTfR97s0PljUpt6Kh-ZpMGe7dw5AKE0vYd1BGMQUfI3SeKnozd-9zQFvFWCFMBMrq-1wnBxeLNwaRf3eWoVKeEsx1BczjDG9rF5t5eglMlmoDL4uHyAGuoeVTCu7CBkKNSUnr_47akIj5rjfudaRauuy5CL7W0JsqRelOGCemLrFg8xPJ9MjqPKb9BWNi9W-7l6YKlV1QleUa1iUeE1YNMaM47Sfb1caV9lms-ZtVhEXDJGZPbnUg.jpg",
-      "https://cdn4.telesco.pe/file/sIZlXAMsuMnDGu0LtiLEi62CTPMGYom8PSBqn7mx-g9xfwQ-YE8aBlR5ydPbKcrTy-CoEx73qH-Wl8CLq5QQaQxAZxpEUjOv_K6syT63V09kQYkCYBbB4zlei-DR6ZUoFVlz2MZxpoaMWplJ2TM-q67Ndwpz-2K6zvxyoQdcwRm9NEllXvnUKWkreyQXsPrC7gzz3cnt3Z2YDExVIjqJJZ8UUMquhzGtOshhVexcJk9J6RGYRUphwklnCq8LNrJjZPl5Zn54HKykb5LwBryyj9MQk_Qzz0nbWYf7w6RQEn0EMUyChgECuQPPHDBSN6uIoAXuVEun_B0Ys14L_TcerQ.jpg",
-      "https://cdn4.telesco.pe/file/kd5b-wyP94dxqq9TplDZjHLl1taO3mKaqnl1ZI22T0TRiP9OZPP-UZostAYs_Im-dS9Zr-g1bE_j99wQ97smvCwN_8od7myDlG6q5_RZ4FsbaVFWA3DqjuvLBB3S_12QS5P730on9ne24WWM0Lw3ZL8NbBZO3W8SPwGIOc-U0pKSJ1pyzyiqS2IVirC-K1CCLT5niUufdTQUlsT-rAgsuvKrzndNniZbZY0q50iwvPn53hu6fgm6-NVKjpYWHke7FNhpc0hLjeYV5GvNqMLjdWSEovTlGWtzw6uHctqtDKT9lrVKOj9Y-mDCAIYUSTUqYkV8CwXgvycWA3RLCcJhkA.jpg",
-      "https://cdn4.telesco.pe/file/McnRZw51RkO7AVrbpI9j_BDnGFswo0P0mMsWXDMyYQiOhVEAkjZUvtBzw2aZ_qivv6wgVAHO5zRmIpXLG4QCeMTP5eAEVHxmoAI1-4nKujl8xqHFSpm1Wm2dzCGa9M5QPysu0D-x_yrE98ZO9peO8I6jEdF-fCU-aYVMSrkIaU_yj2bqAB91iaPZlcGWcgftyjSq2VKqZF16UGcdPkB2BoAGAJgvHzD8CUE8XClbfZy5A1XBZwsrkeZO3PLwDtYqR86Tv2aJdxeoYJ9OqmOKR-EIA9NSNi98l5ItAIqjRKSagU2fJqRsePJfGv3jqQqWLOH28ws17Vopg6bY6Iw_0w.jpg",
-      "https://cdn4.telesco.pe/file/lZzPxcwPnDCfkNIiJvYEg4OqapwCG1SowJZ3WBy1FbdB_UtGPlAC4RErmYyGZvnr83E1JchRVyvhXQ6w4s7Gu-hS5oc2O8J6PeJb8cjeg2SC3FW9W-95j1L9vwzpwkP7Kq6c4J1TP3NuYQjNR1tb_wyI9SUZHeaioMlBlKUz8W9PqbnmhYo4dZzi2Vtcp-dxRCeRKnvAkQjbwKn_WIpoWuqkp0ZBjkxE86_K54oxWBPu2YqFcA5LQKBFFIgbFREPK6J6zOlhpD94NHfXttYsk28sbRSPkQESgBeEY9tqDwjOdaSa7f3gZrfS2QBQQWyLGL0X170DDMmb_4OEIqIjNw.jpg"
+      "https://cdn4.telesco.pe/file/XmfRmhwDwumg37WMT6ecpMb0nd_loOIZdEI0QzLcl7fMHVY2PZZbm6K8xb5GP-iG6ydUJf1C1KtB-n_7wkheQPBDux-GexxU1vQXAJGT9UzL5MMZHiB729btKzbdzFwGxjn6yfGyOjZnt5CTOfKxyJn58ySQRhNsv-LTyji04TceAjq8DTnRkQlnl94ewfZS1iYpxgK9WJ2AF2RIPs-ts3UXxdQkuyip3l-S7rLT_IkVsLkY-4FWed4MeC1CukyF8tjTXNfd_9L1O81yz8J6o9xE3-bM5U6nUgUod31hUS4F3jMR5YjijpLBCm6wyctPSOzj_ImjIo5_YBSRK14FEg.jpg",
+      "https://cdn4.telesco.pe/file/fxBy7p5mTgcDgzpmwEQCvr8LRbqxLewHWBeYt9X9ReQSxup8yshvcRd4o8oUqO_skx32eMfYFt3ZjGdnSYxm3opi-bThihVZ4QOPDsOvGqSixnVfAUBeDNPVX-J_qgIbLcmsc4bzrpb8kDL4mM7WhFExkPe6Y9GtjCkKueSHtxAM6c1oHXn4yNBll_IJjIUgXgzGiDqtqrjDf_NhdrCQe2YqTDNIDnJd_qAz_8xRlJQSp7BU9hoZEYNHtoS7oXhIFT0UVjqq-j3scUX7vnScfC1-eqcRdxU8A_CjEoj6-gR5cK5zOf6oWOCEICi90m15yMpwIVClm2GLPPlyqfHDdQ.jpg",
+      "https://cdn4.telesco.pe/file/V1NiCt5TTEWBH8oVH3YqvbLF7eSRDNf-KwU6FTj21B2a2bAMBNArSuiUv0DPYwmc8p2StA9l01XMBHwI-VVyeNtPSPkpX8YCONfTJzAQR4CysZY1tTj1ORyIFkIroRY_0lZCu4Ub_ntd_iNGA15ucRJWui07qpa4TciED8gs2nDAaZuOTL0keDVjX21m01BZUv940Fg9xKiTBV2w2KPPM9BFu3YawHTzHItvRRqCv0jOpSAKsCaCeZyatEpn_IEwQENV2QQ9ko79tVmqY3JHHjocVI7-D3sthYUlNW7Fh23Znj0jepNB2SdZexc4jDJCnXnVbaLz8uFETbfOzVX2hg.jpg",
+      "https://cdn4.telesco.pe/file/MVr-fpfjy11JABG-khnkNTpX1PlLMI2x9FQImSrli5PyluWDqy4He6Nu6jRFEUtt6wBFl6UjDBTTp1phlrojbhLL2mVANgj4kR9ErIE6EiMmKSJDbF73ylg3x9KbShvaDlawXCgn-RFkZU0h8xTBL1XCPYOoyNWp7SK5sA7N-Hxz3kbynq-E87QwQVln-bjwjctZVS1R_wlemvF2iVRLrDtjYiVF3yPpVkoY88QxCt9mRUlMzyKKt_LrVoVHTUZeP59WJIjhEZZj5CjykflsTwawcz9QOQSJtC2bYlgYCD3RB8Z5N7FePQKrwZ_6RSt4lJWGvoHKz8aafLiijI_ECA.jpg",
+      "https://cdn4.telesco.pe/file/hHSoc59LxSha7phvRgOJAewH0x_Xjp-UEE-uEzUv8lECUMRLlX819MO_-3j2R6UlfJNx1tjiuOidXpbW-PoFNO4w7qW3FtYNI3_YA2xTXBh-pvmLPDtC7M-76mdgQG0_w1cJe7ehZ1JuZYgYP33TqFDLqlSeX2KTlHnTg8oKVBSr-kqhAjBDaaKslKOwqChMGAOFh8ZhibYlUYp_Y-4P-vdC575vnKV8fbzM5zSMrzXRUApF-bPFqsRI2h3f8CbqwE_ZM3rf6p-6P5kLyRWCRV5GvffPSlMl6-uzU5zOQ8uLfmuPeMcNqQWWnpuZ5H4_P_N471p2lAgedkl0uLtUDw.jpg",
+      "https://cdn4.telesco.pe/file/L7W3933OoZGP5fMvTdQuQiCzKvc5YJAavIrYnSIV-8DENpiiBz6Y6mdgv8qeKu7gku_ZPsQWU4kgCyCndzST6IR03wuAri7WbwcKiBnHk84do94rEm0VMYKTUs32qAi-5P_pjJ3D1P4mxY_-xbDopT7AB0gfnBUKqNeqKwdTYbPdVsMvPiKLMCmuL3iYrvTVmK0TJ27rhwg4kdYJzaeKYRfL6KxbZtK0gMdTv1lYrpu61gjotYIq8JTVNkje6BXHG8CPRDG_uRH9zCFv4tIzQHLSIJ4SQ-lCyYq1tV8MvTmQkJ-mB8DKJYGVBx3IpCS6WTwkFuQKZ1Ga_0wXE3lEJw.jpg"
     ],
     "video_urls": [],
     "links": [
       "https://abakanmebel.online/"
     ],
-    "parsed_at": "2026-07-30T08:25:52.572190"
-  },
-  {
-    "id": "abakan_mebel/6957",
-    "date": "2026-07-16T18:30:48+00:00",
-    "text": "{«role»: «assistant», «reasoning»: \"We need to write a post for the channel @abakan_mebel with a comment on a news about furniture/interior. It's about Lindye Galloway reimagining two upper west side penthouses into one home. The user wants a post: 800-1050 characters (hmm that's about 800-1050 characters). Must be in Russian, first person from \\«Даша\\», as a designer from Abakan. We need to incorporate personal analysis, mention materials like массив, ЛДСП, МДФ, керамогранит, стекло, mention styles like скандинавский, лофт, минимализм, прованс. Use emojis. Must be 3-5 sentences? Wait at the top: \\\"Напиши пост для канала — мебель/интерьер: идеи, тренды, советы, материалы, стили. 3-5 предложений, с эмодзи, живо, профессионально. Женский род. Без политики/войны. По-русски. НИКОГДА не начинай с 'Даша: '.…\n\nАвтор @asdasha_bot Кухни на заказ 📞 +7 (913) 448-37-17 🌐 abakanmebel.online",
-    "photo_urls": [
-      "https://cdn4.telesco.pe/file/Sgi4kJzhL-LloUw5xw3J_88sQMbITTBa_FD7UZMpy8gzwonCg1qOvXnK8RemxC_M5qLrwP6pISegT1rEi_aXWaCGa4NYTsZiFbFF9NaqQs7FGiiHj2-TZ-VVoXicYtbWtQ4EcWXh1Bo1QswAtzJzH6fAwzLWmEtVsiMZ6so6EijFm9V931knlcQCTf-yDyPax9Y0Op49KBwlQtlWl_QVqyhQ44GNdjsKw2uxdMKok0cR2reXQ8XYMQ66ZjvHgVflXgq5riZM6gVPgAGehi8SclHv1qiwmOFRG4i85NvbI-bbSBX064pgdZ2Ia3AAeo_6r1OFO_rQAz0zjk0XmMw-fA.jpg",
-      "https://cdn4.telesco.pe/file/Whq6_rh3_DNLkB03VEcIOoUnH0Jx2z4G4UJDLrysf3xkfrsr8-pwAO9CTQ-2tcZGEaobY0ega3qiIywsJuqMhFzEQfuzApQbGFVhXI1Sr5MHvEkKzsz1PuX9-McuwnMCt_9Pr1ZGjX_UyKf4hAOTlEn7q-bYzsfX3E2GO38dIzLQq1V4QCvdUDO0x3VJcSPB1UenM0IHyKZ4cb9bUAiEkxeyvC17ppGWQwOGo-vcRaj0Gt1AwS78rz1x7p0UqdtmvSS4Vyy6NA59VnV9Y-MHfm-n7YmZrayXN9FGUe4z4tHZLin1falfCUnW2sKP2-docO0BW-749cjKp6gSIvq-xA.jpg",
-      "https://cdn4.telesco.pe/file/Pf4ONjQsxWW5kgrzlA3OCi6TtLAI8SNm5Czfp-p4Oj6yzRH9MRmPdb0eiaMgq7xgdork8uTDS9sHRZu2wdJKFAqkH8wIXW8wstvyMRoq45RaFlwIZeMILaeb1pQwWeFWwLL0BnRHwOTKkz9D0G-pF6DTPtf6d8RVgJUeyCzZ203eOyuLOCttBktbGZvOMj8kd9_6uEfrSGGA2Aunf0kGxfIcs9sprNKiL1AcGjQmhR47egBloqXQ2v9BJkWT2yakqMCJTrn6v9Y9RsS2-tIN4uJkfrqrP-f34msJnn_RKJ8iayYN7pK9G1UmDQfBK23zGxbHuWkWufiK6Fa9drbISA.jpg",
-      "https://cdn4.telesco.pe/file/f1b84PaWxsjjXgGDOPoMzZ1iDdUkwoLSraKEJqrHv7rzfT1BNXiKppRhbaerfLbw_YS6TGBWoPT7jZzKU3ioXGYwUk-aBSVmjpNBSg2rrXxEvoyFyHpE49omp2RZHdgaC-f7fN4MzK7pCptX9ZlnACidcu3arSpMkPNR3tVQtr3zXFLlGUn_BOp7-K3Q7vRmHOzmZRExK60hoHHPyzVHWmUPygBK13Ui343Px7finZz4BwzxeuPRkpi4zfwtXMqpco08kW1SC95v9sMu9f4EEujUx0mLEQLMuhs9S8BMTF7DFETb9ufYkHJYZlJUGc-QsoTR5b44CypQx2Kp1l8l1w.jpg",
-      "https://cdn4.telesco.pe/file/h1JUwDRoq34kVUXdWYmz25qvt-V0sQQduZKy3Eo4jdvlOnWR9FSBEdYbfahP5N3jgRZ9Zo5hX_Eb-EjRla_eqPXIysIeyOfaEuTVLP4pmB-bZC_b0fLDFXuD4AB44JvpmojjINgoD1EvKoHWCggKpTjBwHm00ZESZa61hxv-mv_pIhbrkTeaMvZ_y_8OUTtnB893K6dWHzPzbpc3fZllP31lDQm2IrQyTx7QDvzSUJAPH7DUYub2LYVLZHy3ctejnzX_dU-OiYv4d4YKkwTEhKUBPEpgoG0rKz4NVHC2upN7nNHrc2yodAnJnoBFC2TczRXcfgdAIVWhtFvOpMrWSg.jpg",
-      "https://cdn4.telesco.pe/file/k9K0A5-LhswZ61tP_jJxyr2co7uymtWQgMcZTHqnVWiOb5sYuJ-ZIl8XI0Axl4Xn04_Mu5gAkZwIXgBYIpcr967XLx0sDH1gxtQnXip9f_C2opiU2u0AwNTkFri2zjr-HwaNgMyL2LYbOqjf4bH3tOk82K7TMwoDp15lPJXzuQ9O3ZvXTt2_tMLklbGqcSxDML91pprD2zr4MWKtIiH7Lf_J_pDZXgtVjr-ledM0VGVVhVYqLx2b2RwBlXeUr23evDdPEkpuEA0eam91MVmnaG4uEACGoaecMc9mtL3SSDHsZvMdbC0lESl5jo6sw3_8L70KuvVF84Psv93Kum4UlQ.jpg"
-    ],
-    "video_urls": [],
-    "links": [
-      "https://abakanmebel.online/"
-    ],
-    "parsed_at": "2026-07-30T08:25:51.166089"
+    "parsed_at": "2026-07-30T11:08:03.396052"
   }
 ]
